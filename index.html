@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kitty Cat Run</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Layout: one column, the game first at 312:208, then the touch buttons and a line of help.
+     One soft pastel look on purpose, to match the game. */
+  :root {
+    --bg: #fdeef4;
+    --panel: #fffafc;
+    --edge: #f2bfd2;
+    --ink: #6a3a5a;
+    --muted: #a0708e;
+    --accent: #ff7aa2;
+    --font-body: "Fredoka", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color-scheme: light;
+    /* the high score board in leaderboard.js */
+    --lb-font: var(--font-body);
+    --lb-title-font: var(--font-body);
+    --lb-title-weight: 700;
+    --lb-title-size: 30px;
+    --lb-title: var(--accent);
+    --lb-bg: #fdeef4;
+    --lb-panel: var(--panel);
+    --lb-edge: var(--edge);
+    --lb-ink: var(--ink);
+    --lb-muted: var(--muted);
+    --lb-accent: var(--accent);
+    --lb-on-accent: #ffffff;
+    --lb-mine: rgba(255, 122, 162, 0.16);
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { background: var(--bg); color: var(--ink); }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font-body);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding-block: 20px 32px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .screen {
+    width: min(100%, 1100px, calc((100vh - 120px) * 312 / 208));
+    min-width: min(100%, 320px);
+  }
+  canvas {
+    display: block;
+    width: 100%;
+    border-radius: 14px;
+    box-shadow: 0 0 0 3px var(--edge), 0 12px 36px rgba(160, 80, 120, 0.25);
+    touch-action: none;
+    outline: none;
+  }
+  canvas:focus-visible { box-shadow: 0 0 0 3px var(--accent), 0 12px 36px rgba(160, 80, 120, 0.25); }
+  .pad { display: none; gap: 24px; align-items: center; justify-content: center; }
+  .dpad { display: grid; grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(2, 54px); gap: 8px; }
+  .acts { display: grid; grid-template-columns: repeat(2, 84px); gap: 8px; }
+  .pad button {
+    font: 600 16px var(--font-body);
+    color: var(--ink);
+    background: var(--panel);
+    border: 2px solid var(--edge);
+    border-radius: 14px;
+    height: 54px;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .pad button:active { background: var(--edge); }
+  .dpad [data-key="ArrowUp"] { grid-column: 2; }
+  .dpad [data-key="ArrowLeft"] { grid-column: 1; grid-row: 2; }
+  .dpad [data-key="ArrowDown"] { grid-column: 2; grid-row: 2; }
+  .dpad [data-key="ArrowRight"] { grid-column: 3; grid-row: 2; }
+  .acts [data-key="v-jet"] { color: #8a6ee0; }
+  .acts [data-key="v-phase"] { color: #e0507e; }
+  @media (pointer: coarse) { .pad { display: flex; } }
+  .scores-btn {
+    font: 600 15px var(--font-body);
+    color: var(--ink);
+    background: var(--panel);
+    border: 2px solid var(--edge);
+    border-radius: 999px;
+    padding: 8px 20px;
+    cursor: pointer;
+  }
+  .scores-btn:hover { border-color: var(--accent); }
+  p { margin: 0; max-width: 1100px; color: var(--muted); font-size: 15px; line-height: 1.55; text-align: center; }
+</style>
+</head>
+<body>
+<div class="screen"><canvas id="game" tabindex="0" aria-label="Kitty Cat Run game"></canvas></div>
+  <div class="pad" aria-label="Touch controls">
+    <div class="dpad">
+      <button data-key="ArrowUp" aria-label="Up">▲</button>
+      <button data-key="ArrowLeft" aria-label="Left">◀</button>
+      <button data-key="ArrowDown" aria-label="Down">▼</button>
+      <button data-key="ArrowRight" aria-label="Right">▶</button>
+    </div>
+    <div class="acts">
+      <button data-key="v-jet">Jump</button>
+      <button data-key="v-phase">Swipe</button>
+      <button data-key="Escape">Retry</button>
+      <button data-key="KeyP">Pause</button>
+    </div>
+  </div>
+  <button class="scores-btn" data-scores hidden>High scores</button>
+  <p>Help the cat eat every treat in the room. When the last one is gone, the mouse wakes up, and the cat runs over to say hi. The arrows walk and climb the cat posts. Space or Z jumps, and once the cat has a ball of yarn, its tail spins like a helicopter and it flies until the yarn runs out. X or Enter swipes a box out of the way. Pounce on a button to turn off the sprinkler of the same color, and press Down inside a tunnel to come out of the other one. Watch out for the dog, the robot vacuum, the bouncy balls and the cactus pots. A bone makes the dogs sit for a while, and a bubble keeps the cat safe. Esc starts the room over and costs a life, P pauses and M turns the sound off.</p>
+  <script src="levels.js"></script>
+  <script src="art.js"></script>
+  <script src="leaderboard.js" data-game="kitty-cat-run"></script>
+  <script src="game.js"></script>
+</body>
+</html>
