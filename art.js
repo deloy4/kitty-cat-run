@@ -27,6 +27,26 @@ const CATS = [
     belly: '#fffaf2', paw: '#5b4232', ear: '#8a6a58', nose: '#7a5a50', eye: '#5aa8f0', leg: '#6d5040', legFar: '#4d3628', tail: '#5b4232' },
   { name: 'Candy', kind: 'a candy-striped kitten', pattern: 'candy', base: '#fdfbfb', shade: '#e6e1e6', light: '#ffffff', stripe: '#f2a3b4',
     stripe2: '#a6d6ea', belly: '#ffffff', paw: '#ffffff', ear: '#f5aebd', nose: '#f19bb0', eye: '#68b6e2' },
+  { name: 'Ginger', kind: 'an orange and white cat', pattern: 'tuxedo', base: '#f2a04e', shade: '#d27f34', light: '#ffd3a0', stripe: '#c76a28',
+    belly: '#fffaf4', paw: '#fffaf4', ear: '#f6b2ac', nose: '#ef8a98', eye: '#8fd06a', muzzle: '#fffaf4' },
+  { name: 'Bluebell', kind: 'a Russian Blue', pattern: 'solid', base: '#8d9bb0', shade: '#6c7a90', light: '#b6c2d4', stripe: '#6c7a90',
+    belly: '#a3b0c3', paw: '#9eabbe', ear: '#d8a6b4', nose: '#9a8aa0', eye: '#7fd36a' },
+  { name: 'Tortie', kind: 'a tortoiseshell', pattern: 'calico', base: '#3d3238', shade: '#2a2226', light: '#5e4c54', stripe: '#8a5430',
+    patch: '#d77a34', belly: '#4a3c42', paw: '#4a3c42', ear: '#c88a96', nose: '#c27a88', eye: '#f0b030' },
+  { name: 'Silver', kind: 'a silver tabby', pattern: 'tabby', base: '#d3d8de', shade: '#aab1ba', light: '#f2f4f7', stripe: '#4c535c',
+    belly: '#f6f7f9', paw: '#eef0f3', ear: '#f3b6be', nose: '#e98d9c', eye: '#8fd06a' },
+  { name: 'Socks', kind: 'a grey and white cat', pattern: 'tuxedo', base: '#8f939c', shade: '#6e737c', light: '#b7bbc3', stripe: '#6e737c',
+    belly: '#ffffff', paw: '#ffffff', ear: '#f2b2bc', nose: '#ee93a6', eye: '#f2c443', muzzle: '#ffffff' },
+  { name: 'Mocha', kind: 'a chocolate cat', pattern: 'solid', base: '#7a5240', shade: '#5a3a2c', light: '#a07462', stripe: '#5a3a2c',
+    belly: '#8a6050', paw: '#8a6050', ear: '#c78e90', nose: '#b07a7c', eye: '#e8a040' },
+  { name: 'Sunny', kind: 'a flame point Siamese', pattern: 'pointed', base: '#fbf1e2', shade: '#e6d6bc', light: '#ffffff', stripe: '#e08a4a',
+    belly: '#fffaf2', paw: '#e89a5c', ear: '#e8a07a', nose: '#e8908c', eye: '#5aa8f0', leg: '#eaa266', legFar: '#c87a40', tail: '#e08a4a' },
+  { name: 'Domino', kind: 'a black and white cat', pattern: 'calico', base: '#fbfaf8', shade: '#e0dcd6', light: '#ffffff', stripe: '#2e2a32',
+    patch: '#2e2a32', belly: '#ffffff', paw: '#ffffff', ear: '#f4b2bc', nose: '#ee93a6', eye: '#9be27a' },
+  { name: 'Lilac', kind: 'a lilac cat', pattern: 'solid', base: '#cfc2c8', shade: '#b0a2aa', light: '#ebe2e6', stripe: '#b0a2aa',
+    belly: '#e2d8dc', paw: '#e2d8dc', ear: '#f2b8c6', nose: '#e8a0b4', eye: '#e8b040' },
+  { name: 'Sprinkles', kind: 'a rainbow-striped kitten', pattern: 'candy', base: '#fdfbff', shade: '#e6e1ee', light: '#ffffff', stripe: '#c9b2f2',
+    stripe2: '#a8e6c8', belly: '#ffffff', paw: '#ffffff', ear: '#f5aebd', nose: '#f19bb0', eye: '#9a7ae0' },
 ];
 
 const MICE = [
@@ -40,6 +60,16 @@ const MICE = [
   { name: 'silver', fur: '#c9ccd3', shade: '#a6aab3', belly: '#eceef2' },
   { name: 'chocolate', fur: '#7a5038', shade: '#5a3826', belly: '#c4a088' },
   { name: 'cream', fur: '#f3e3c3', shade: '#dcc69e', belly: '#fffaf0' },
+  { name: 'agouti', fur: '#8c7656', shade: '#6c5838', belly: '#cdbb9c' },
+  { name: 'lilac', fur: '#b9aab8', shade: '#9a8a98', belly: '#e2d8e0' },
+  { name: 'champagne', fur: '#e9d6b2', shade: '#cdb88e', belly: '#fbf1de' },
+  { name: 'blue', fur: '#7f8aa0', shade: '#626c82', belly: '#b8c0d0' },
+  { name: 'black', fur: '#3f3a42', shade: '#2a262c', belly: '#6a646e' },
+  { name: 'dove', fur: '#c9bdb6', shade: '#aa9e96', belly: '#ece4de' },
+  { name: 'ivory', fur: '#fff8e8', shade: '#e8dcc4', belly: '#ffffff' },
+  { name: 'smoke', fur: '#8e8e98', shade: '#70707a', belly: '#c4c4cc' },
+  { name: 'honey', fur: '#d9a860', shade: '#b88a42', belly: '#f2d8a8' },
+  { name: 'pearl', fur: '#e4e2ec', shade: '#c6c4d0', belly: '#f8f7fb' },
 ];
 
 // The room behind each level: wallpaper, then the colour and kind of the walls and floors.
@@ -54,6 +84,16 @@ const THEMES = [
   { bg: ['#e6ecf2', '#cdd6e0'], paper: 'brick', ink: 'rgba(120, 135, 160, 0.2)', block: ['#d5d9e0', '#b0b6c0', '#868d99'], kind: 'concrete' },
   { bg: ['#2c3466', '#4a3f7e'], paper: 'stars', ink: 'rgba(255, 246, 200, 0.85)', block: ['#d6c6f6', '#b19ce6', '#8770c4'], kind: 'pillow' },
   { bg: ['#fff0e6', '#fbd9c4'], paper: 'stripes', ink: 'rgba(240, 150, 130, 0.14)', block: ['#f7cc94', '#e6a866', '#bb8040'], kind: 'wood' },
+  { bg: ['#fffae6', '#f6e8c0'], paper: 'checks', ink: 'rgba(220, 170, 90, 0.14)', block: ['#e8c08a', '#cf9c5e', '#a07038'], kind: 'wood' },
+  { bg: ['#fffde8', '#fff3c4'], paper: 'stripes', ink: 'rgba(255, 200, 90, 0.18)', block: ['#ffffff', '#e6e8ee', '#b8bcc8'], kind: 'tile' },
+  { bg: ['#f3e8dc', '#e0ceb8'], paper: 'boards', ink: 'rgba(110, 70, 40, 0.15)', block: ['#b4704e', '#8e5034', '#62341e'], kind: 'wood' },
+  { bg: ['#f6efff', '#e6dafc'], paper: 'dots', ink: 'rgba(150, 110, 220, 0.16)', block: ['#5a5468', '#36323f', '#1e1c28'], kind: 'tile' },
+  { bg: ['#e2f7ec', '#f4fff6'], paper: 'sky', ink: 'rgba(255, 255, 255, 0.85)', block: ['#b8e890', '#86c860', '#5a9e3e'], kind: 'hedge' },
+  { bg: ['#fff1f6', '#ffe0ec'], paper: 'dots', ink: 'rgba(255, 120, 170, 0.16)', block: ['#ffd27a', '#f6a94e', '#cf7f2e'], kind: 'toy' },
+  { bg: ['#e2e6ee', '#c8cfdc'], paper: 'brick', ink: 'rgba(100, 110, 140, 0.22)', block: ['#c0c4cc', '#9aa0aa', '#737a86'], kind: 'concrete' },
+  { bg: ['#d6f0ff', '#f0faff'], paper: 'sky', ink: 'rgba(255, 255, 255, 0.9)', block: ['#c48e5a', '#9c683a', '#6e4422'], kind: 'wood' },
+  { bg: ['#cfe4f8', '#eaf4ff'], paper: 'snow', ink: 'rgba(255, 255, 255, 0.95)', block: ['#ffffff', '#e4eef8', '#b8cce0'], kind: 'pillow' },
+  { bg: ['#ffd9b8', '#ffc0cc'], paper: 'sky', ink: 'rgba(255, 255, 255, 0.7)', block: ['#f09a8a', '#d06e5c', '#9e4636'], kind: 'tile' },
 ];
 
 const TOY = ['#ff9aa8', '#ffc66b', '#9ad98a', '#84c6f2', '#c2a2f0'];
@@ -137,6 +177,12 @@ function drawRoom(g, cols, rows, th) {
     }
     g.fillStyle = 'rgba(150, 210, 140, 0.35)';
     for (let x = -6; x < W + 12; x += 14) { g.beginPath(); g.arc(x + hash(x, 9) * 6, H - 20, 10 + hash(x, 8) * 5, 0, 7); g.fill(); }
+  } else if (th.paper === 'snow') {
+    for (let i = 0; i < 110; i++) {
+      g.globalAlpha = 0.45 + hash(i, 14) * 0.55;
+      g.beginPath(); g.arc(hash(i, 11) * W, hash(i, 12) * H, 0.4 + hash(i, 13) * 1.2, 0, 7); g.fill();
+    }
+    g.globalAlpha = 1;
   } else if (th.paper === 'stars') {
     for (let i = 0; i < 70; i++) {
       const sx = hash(i, 6) * W, sy = hash(i, 7) * H, s = 0.4 + hash(i, 8) * 1.1;
@@ -668,8 +714,10 @@ function catBody(g, P, puff) {
     g.fillStyle = P.stripe; ell(g, 0.8, -7, 1.9, 1.2, 0.3); g.fill();
     g.fillStyle = P.patch; ell(g, 2.8, -4.4, 1.2, 0.9); g.fill();
   } else if (P.pattern === 'pointed') {
-    g.fillStyle = grad(g, 1, 0, -5.4, 0, [[0, 'rgba(91,66,50,0)'], [1, 'rgba(91,66,50,0.45)']]);
+    g.globalAlpha = 0.45;
+    g.fillStyle = grad(g, 1, 0, -5.4, 0, [[0, P.base], [1, P.stripe]]);
     g.fillRect(-6, -8, 8, 6);
+    g.globalAlpha = 1;
   }
   g.fillStyle = P.belly; g.globalAlpha = P.pattern === 'tuxedo' ? 1 : 0.85;
   ell(g, 0.6, -2.5, 3.5, 1.35); g.fill();
@@ -714,7 +762,7 @@ function catHead(g, P, t, s) {
     g.fillStyle = P.patch; ell(g, hx - 2, hy - 1.6, 2, 1.8); g.fill();
     g.fillStyle = P.stripe; ell(g, hx + 2.2, hy - 2.4, 1.4, 1.1); g.fill();
   } else if (P.pattern === 'pointed') {
-    g.fillStyle = 'rgba(91, 66, 50, 0.75)'; ell(g, hx + 0.6, hy + 1.1, 2.6, 2); g.fill();
+    g.fillStyle = P.stripe; g.globalAlpha = 0.75; ell(g, hx + 0.6, hy + 1.1, 2.6, 2); g.fill(); g.globalAlpha = 1;
   } else if (P.pattern === 'tuxedo') {
     g.fillStyle = P.muzzle;
     g.beginPath(); g.moveTo(hx + 0.3, hy - 1.6); g.lineTo(hx + 2.6, hy + 3); g.lineTo(hx - 2, hy + 3); g.closePath(); g.fill();

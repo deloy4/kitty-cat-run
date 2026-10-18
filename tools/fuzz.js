@@ -9,7 +9,8 @@ for (const f of ['levels.js', 'art.js', 'game.js']) vm.runInContext(fs.readFileS
 const keys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Space', 'KeyX'];
 let rs = 7; const r = () => (rs = (rs * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
 const frames = +process.argv[2] || 30000;
-for (let lvl = 0; lvl < 10; lvl++) {
+const count = vm.runInContext('LEVELS.length', ctx);
+for (let lvl = 0; lvl < count; lvl++) {
   const st = { caught: {}, treats: 0, boxes: 0, tunnels: 0, buttons: 0, wins: 0 };
   vm.runInContext(`srand(${lvl + 1}); G.level = ${lvl}; loadLevel(); G.screen = 'play'; S.fuel = 10000;`, ctx);
   for (let f = 0; f < frames; f++) {

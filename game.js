@@ -557,6 +557,26 @@ function newGame() {
   toReady();
 }
 
+// ---------- the lives cheat ----------
+
+// Typing KITTY, or tapping the hearts five times within two seconds, gives five more lives. Like the
+// other cheats it keeps that game off the high score board.
+let typed = '', heartTaps = [];
+function livesCheat() {
+  if (!['play', 'ready', 'intro'].includes(G.screen)) return;
+  G.lives = Math.min(99, G.lives + 5);
+  G.cheated = true;
+  G.cheatShown = G.t + 1.8;
+  sfx('life'); meow(1.2, 0.3, 0.06, 0.4);
+}
+function tapHearts(ev) {
+  const r = canvas.getBoundingClientRect();
+  const x = (ev.clientX - r.left) / r.width * PLAY_W, y = (ev.clientY - r.top) / r.height * (PLAY_H + HUD_H);
+  if (y < PLAY_H || x < 130 || x > 190) return;
+  heartTaps = heartTaps.filter((t) => G.t - t < 2).concat(G.t);
+  if (heartTaps.length >= 5) { heartTaps = []; livesCheat(); }
+}
+
 // ---------- high scores (shared with the other arcade games, see leaderboard.js) ----------
 
 let best = null;
@@ -930,7 +950,7 @@ function draw(alpha) {
     case 'ready': drawReady(t); break;
     case 'congrats':
       drawPlay(1, t); drawHud(t);
-      drawOverlayText([['You did it!', 16, '#ff7aa2'], ['Every cat found its mouse in all 10 rooms.', 7, '#7a4a68'], ['Press any key to keep playing', 6, '#b06a8a']]);
+      drawOverlayText([['You did it!', 16, '#ff7aa2'], [`Every cat found its mouse in all ${LEVELS.length} rooms.`, 7, '#7a4a68'], ['Press any key to keep playing', 6, '#b06a8a']]);
       break;
     case 'gameover': case 'board':
       drawPlay(1, t); drawHud(t);
@@ -939,6 +959,12 @@ function draw(alpha) {
     default:
       drawPlay(alpha, t); drawHud(t);
       if (G.paused) drawOverlayText([['Paused', 14, '#ff7aa2'], ['Press P to keep playing', 7, '#7a4a68']]);
+  }
+  if (G.cheatShown > t) {
+    const k = Math.min(1, (G.cheatShown - t) / 0.4);
+    ctx.globalAlpha = k;
+    centerText('+5 lives!', 90 - (1.8 - (G.cheatShown - t)) * 8, 16, '#ff6a90', 700, '#ffffff');
+    ctx.globalAlpha = 1;
   }
 }
 
@@ -1015,6 +1041,7 @@ function onKey(e, down) {
   if (code === 'KeyM') { muted = !muted; if (muted) stopLoops(); return; }
   if ((code === 'KeyP' || code === 'Pause') && G.screen === 'play') { G.paused = !G.paused; stopLoops(); return; }
   if (code === 'Digit2' && G.screen === 'intro') return;
+  if (/^Key[A-Z]$/.test(code)) { typed = (typed + code[3]).slice(-5); if (typed === 'KITTY') { typed = ''; livesCheat(); } }
   pressed.push(code);
 }
 
@@ -1055,7 +1082,8 @@ function start() {
   window.addEventListener('blur', () => { held.clear(); stopLoops(); if (G.screen === 'play') G.paused = true; });
   document.addEventListener('visibilitychange', () => { if (document.hidden) { stopLoops(); if (G.screen === 'play') G.paused = true; } });
   window.addEventListener('resize', resize);
-  canvas.addEventListener('pointerdown', () => {
+  canvas.addEventListener('pointerdown', (ev) => {
+    tapHearts(ev);
     ensureAudio();
     if (audio && audio.state === 'suspended') audio.resume();
     canvas.focus();
