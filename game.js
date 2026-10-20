@@ -24,7 +24,7 @@ const G = {
   screen: 'title', level: 0, score: 0, lives: START_LIVES, speed: 5, newLife: 0,
   grid: null, door: null, start: null, monsters: [], pads: [], digs: [], pickups: [],
   gifts: 0, giftsTotal: 0, doorCount: 0, doorOpen: false, shield: 0, stun: 0, pressed: [false, false, false],
-  keys: [false, false, false], info: 0, t: 0, timer: 0,
+  keys: [false, false, false], pick: 0, info: 0, t: 0, timer: 0,
 };
 let S = null; // the cat
 
@@ -581,10 +581,42 @@ function toTitle() {
   G.level = 0; loadLevel();
 }
 
-function newGame() {
+function newGame(level = 0) {
   srand(Date.now() & 0xffff);
-  G.level = 0; G.score = 0; G.lives = START_LIVES; G.speed = 5; G.cheated = false;
+  // a game that starts past level 1 is practice: like the cheats, it keeps off the high score board
+  G.level = level; G.score = 0; G.lives = START_LIVES; G.speed = 5; G.cheated = level > 0;
   toReady();
+}
+
+// ---------- picking a level, for testing ----------
+
+// L on the title screen (not shown anywhere on the page) lists every level as a numbered square, eight
+// to a row, with the chosen room drawn behind them.
+const PICK = { cols: 8, w: 28, h: 18, gap: 4, x: 0, y: 34 };
+PICK.x = (PLAY_W - (PICK.cols * PICK.w + (PICK.cols - 1) * PICK.gap)) / 2;
+
+function openLevels() {
+  held.clear(); pressed.length = 0; stopLoops();
+  G.paused = false;
+  G.pick = Math.min(G.level, LEVELS.length - 1);
+  G.screen = 'levels'; G.timer = 0;
+  loadLevel();
+}
+
+function choose(i) {
+  i = Math.max(0, Math.min(LEVELS.length - 1, i));
+  if (i === G.pick) return;
+  G.pick = i; G.level = i; loadLevel();
+  sfx('tick');
+}
+
+function levelAt(ev) {
+  const r = canvas.getBoundingClientRect();
+  const x = (ev.clientX - r.left) / r.width * PLAY_W, y = (ev.clientY - r.top) / r.height * (PLAY_H + HUD_H);
+  const c = Math.floor((x - PICK.x) / (PICK.w + PICK.gap)), row = Math.floor((y - PICK.y) / (PICK.h + PICK.gap));
+  const i = row * PICK.cols + c;
+  const inside = (x - PICK.x) % (PICK.w + PICK.gap) < PICK.w && (y - PICK.y) % (PICK.h + PICK.gap) < PICK.h;
+  return c >= 0 && c < PICK.cols && row >= 0 && x >= PICK.x && y >= PICK.y && inside && i < LEVELS.length ? i : -1;
 }
 
 // ---------- the lives cheat ----------
@@ -951,6 +983,35 @@ function drawTitle(t) {
   centerText('H high scores  ·  P pause  ·  M sound', 182, 5, '#b06a8a', 500);
 }
 
+function drawLevels(t) {
+  drawPlay(1, t);
+  ctx.fillStyle = 'rgba(255, 246, 250, 0.82)';
+  ctx.fillRect(0, 0, PLAY_W, PLAY_H + HUD_H);
+  centerText('Pick a level', 18, 12, '#ff7aa2', 700, '#ffffff');
+  // one colour for each ten rooms, the way the game gets harder
+  const GROUP = [['#ffd6e4', '#f08ab0'], ['#fff0c4', '#e8b84a'], ['#d4f4e4', '#5cc49a'], ['#d8ecff', '#5aa2e6']];
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  LEVELS.forEach((L, i) => {
+    const x = PICK.x + (i % PICK.cols) * (PICK.w + PICK.gap), y = PICK.y + Math.floor(i / PICK.cols) * (PICK.h + PICK.gap);
+    const [light, dark] = GROUP[Math.floor(i / 10) % GROUP.length], on = i === G.pick;
+    ctx.save();
+    if (on) { ctx.shadowColor = dark; ctx.shadowBlur = 6; }
+    ctx.fillStyle = on ? dark : light;
+    rrect(ctx, x, y, PICK.w, PICK.h, 5); ctx.fill();
+    ctx.restore();
+    ctx.strokeStyle = on ? '#ffffff' : dark; ctx.lineWidth = on ? 1.2 : 0.7;
+    rrect(ctx, x + 0.5, y + 0.5, PICK.w - 1, PICK.h - 1, 4.5); ctx.stroke();
+    ctx.font = `700 ${on ? 9 : 8}px ${FONT}`;
+    ctx.fillStyle = on ? '#ffffff' : '#7a4a68';
+    ctx.fillText(String(i + 1), x + PICK.w / 2, y + PICK.h / 2 + 0.5);
+  });
+  ctx.textAlign = 'left';
+  const P = catOf(G.pick);
+  centerText(`Level ${G.pick + 1}  ·  ${LEVELS[G.pick].name}  ·  ${P.name}`, 162, 8, '#7a4a68', 700);
+  centerText('Arrows choose  ·  Enter or Jump plays  ·  Esc goes back  ·  or tap a number', 177, 5.5, '#b06a8a', 600);
+  centerText('Starting past level 1 is practice, so the score stays off the high score board.', 189, 5, '#b06a8a', 500);
+}
+
 function drawReady(t) {
   drawPlay(1, t);
   ctx.fillStyle = 'rgba(255, 246, 250, 0.7)';
@@ -980,6 +1041,7 @@ function draw(alpha) {
   ctx.clearRect(0, 0, PLAY_W, PLAY_H + HUD_H);
   switch (G.screen) {
     case 'title': drawTitle(t); break;
+    case 'levels': drawLevels(t); break;
     case 'ready': drawReady(t); break;
     case 'congrats':
       drawPlay(1, t); drawHud(t);
@@ -1043,6 +1105,16 @@ function frame(now) {
       if (G.bonusStep % 4 === 0) sfx('tick');
     }
     if (G.bonusStep >= 100 && G.timer > 100 * 18 + 600) { nextLevel(); toReady(); }
+  } else if (G.screen === 'levels') {
+    while (pressed.length) {
+      const k = pressed.shift();
+      if (k === 'ArrowLeft' || k === 'KeyA') choose(G.pick - 1);
+      else if (k === 'ArrowRight' || k === 'KeyD') choose(G.pick + 1);
+      else if (k === 'ArrowUp' || k === 'KeyW') choose(G.pick - PICK.cols);
+      else if (k === 'ArrowDown' || k === 'KeyS') choose(G.pick + PICK.cols);
+      else if (k === 'Enter' || k === 'Space' || k === 'v-jet' || k === 'v-start') { newGame(G.pick); break; }
+      else if (k === 'Escape' || k === 'KeyQ') { toTitle(); break; }
+    }
   } else if (G.screen === 'gameover') {
     if (G.timer > 2000) { G.screen = 'board'; showScores(G.score); }
   } else if (G.screen === 'ready' || G.screen === 'title' || G.screen === 'congrats') {
@@ -1052,6 +1124,7 @@ function frame(now) {
       if (G.screen === 'title') {
         if (k === 'Enter' || k === 'Space' || k === 'Pointer' || k === 'v-start') newGame();
         else if (k === 'KeyH') showScores();
+        else if (k === 'KeyL') openLevels();
       } else if (G.screen === 'ready' && G.timer > 300) {
         G.screen = 'intro'; G.timer = 0;
       } else if (G.screen === 'congrats' && G.timer > 800) { G.screen = 'ready'; loadLevel(); G.timer = 0; }
@@ -1121,6 +1194,7 @@ function start() {
     if (audio && audio.state === 'suspended') audio.resume();
     canvas.focus();
     if (G.screen === 'play' && G.paused) { G.paused = false; return; }
+    if (G.screen === 'levels') { const i = levelAt(ev); if (i >= 0) newGame(i); return; }
     pressed.push('Pointer');
   });
   wireTouch();

@@ -105,6 +105,10 @@ swipes; with no arrow held it swipes the way the cat faces, and Up or Down swipe
 Walking onto a pounce button presses it. Down inside a tunnel goes through. P pauses, M turns the
 sound off, and + and − change the speed. On an iPad, buttons appear under the game.
 
+For testing, press L on the title screen (nothing on the page mentions it). Every room shows as a
+numbered square with the chosen room drawn behind it: arrows or a tap choose, Enter, Space or Jump
+plays, Esc goes back. A game started past level 1 doesn't post a high score, the same as `?level=`.
+
 ## High scores
 
 The board is the shared `arcade-scores` Supabase project that Jetpack Christmas and Graveyard
