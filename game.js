@@ -1130,22 +1130,25 @@ function start() {
   resize();
   toTitle();
   refreshBest();
-  // For checking the game from a script: ?level=3&keys=40:R,60:JD starts that level and holds keys
-  // for so many frames each (L R U D J S = left, right, up, down, jump/fly, swipe).
+  // ?level=3 starts that room. For checking the game from a script, &keys=40:R,60:JD also holds keys
+  // for so many frames each, and the keyboard is ignored (L R U D J S = left, right, up, down, jump/fly, swipe).
   const q = new URLSearchParams(location.search);
-  if (q.get('level')) {
-    G.level = +q.get('level') - 1; loadLevel(); G.screen = 'play'; G.cheated = true;
+  const want = parseInt((q.get('level') || '').replace(/\D/g, ''), 10);
+  if (want >= 1) {
+    G.level = Math.min(want, LEVELS.length) - 1; loadLevel(); G.screen = 'play'; G.cheated = true;
     if (q.get('fuel')) S.fuel = 10000;
-    const plan = (q.get('keys') || '').split(',').filter(Boolean).map((p) => p.split(':'));
-    const names = { L: 'ArrowLeft', R: 'ArrowRight', U: 'ArrowUp', D: 'ArrowDown', J: 'Space', S: 'KeyX' };
-    let n = 0;
-    const realStep = step;
-    step = function () {
-      let f = n++;
-      held.clear();
-      for (const [frames, keys = ''] of plan) { if (f < +frames) { for (const k of keys) held.add(names[k]); break; } f -= +frames; }
-      return realStep();
-    };
+    if (q.get('keys')) {
+      const plan = q.get('keys').split(',').filter(Boolean).map((p) => p.split(':'));
+      const names = { L: 'ArrowLeft', R: 'ArrowRight', U: 'ArrowUp', D: 'ArrowDown', J: 'Space', S: 'KeyX' };
+      let n = 0;
+      const realStep = step;
+      step = function () {
+        let f = n++;
+        held.clear();
+        for (const [frames, keys = ''] of plan) { if (f < +frames) { for (const k of keys) held.add(names[k]); break; } f -= +frames; }
+        return realStep();
+      };
+    }
     for (let i = +(q.get('run') || 0); i > 0 && G.screen === 'play'; i--) step();
     if (q.get('screen')) { G.screen = q.get('screen'); G.timer = 99999; }
   }
