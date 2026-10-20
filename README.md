@@ -12,7 +12,7 @@ tanks filled the jetpack, and with yarn the cat's tail spins like a helicopter a
 swipe knocks boxes away where the Phase Shifter tunnelled through brick, and swiped boxes stay gone.
 The exit is a mouse instead of a door, and the robot that chased Santa is now a dog.
 
-## The thirty rooms
+## The forty rooms
 
 Each level has its own cat and mouse colour, always in the same order: Pumpkin the orange tabby,
 Smokey the grey tabby, Midnight the black cat, Snowball the white cat, Tux the tuxedo, Patches the
@@ -23,9 +23,14 @@ cat, Mocha the chocolate cat, Sunny the flame point Siamese, Domino the black an
 and Sprinkles, a lavender and mint striped kitten. Rooms 21 to 30 bring Cinnamon the cinnamon tabby,
 Peaches the peach and white cat, Frost the blue point Siamese, Pepper the dark grey tabby, Maple the
 maple calico, Biscuit the fawn cat, Clover the soft grey calico, Hazel the golden tabby, Mittens the
-brown and white cat, and Twinkle, a lemon and sky striped kitten. The mice go grey, brown, white, tan,
+brown and white cat, and Twinkle, a lemon and sky striped kitten. Rooms 31 to 40 bring Pebble the
+blue cream cat, Mochi the chocolate point Siamese, Juniper the silver and white cat, Nutmeg the red
+tabby, Willow the smoke grey cat, Ziggy the gold and black calico, Marble the marble tabby, Oreo the
+black cat with a white chest, Ember the cinnamon and white cat, and Stardust, a pink and lilac striped
+kitten. The mice go grey, brown, white, tan,
 charcoal, fawn, cinnamon, silver, chocolate, cream, agouti, lilac, champagne, blue, black, dove, ivory,
-smoke, honey, pearl, russet, snow, ash, caramel, peach, slate, butter, mink, rose and sable.
+smoke, honey, pearl, russet, snow, ash, caramel, peach, slate, butter, mink, rose, sable, frost,
+cocoa, oat, pewter, apricot, storm, vanilla, walnut, blush and starlight.
 
 | Level | Room | What it adds |
 | --- | --- | --- |
@@ -59,12 +64,27 @@ smoke, honey, pearl, russet, snow, ash, caramel, peach, slate, butter, mink, ros
 | 28 | The Clock Tower | Two bridges that are never there together, two switches |
 | 29 | The Secret Garden | Keys, flaps, a tunnel and three flips of the switch |
 | 30 | The Toy Castle | Everything, with a switch up on a shelf |
+| 31 | The Ice Rink | Ice on every floor with cactus pots and balls on it |
+| 32 | The Portal Room | Four rooms one inside the next, each only through a tunnel |
+| 33 | The Frozen Pond | Ice slides that end in one-way flaps |
+| 34 | The Hall of Doors | The switch decides which tunnel the cat can reach |
+| 35 | The Ice Palace | Ice with pink and mint bridges, a switch on a shelf |
+| 36 | The Portal Maze | Four tunnels, flaps and three gates in a grid of rooms |
+| 37 | The Glacier | Ice, two dogs, and flaps that keep a dog shut in |
+| 38 | The Wizard's Tower | A tunnel that comes out at a shut door |
+| 39 | The North Pole | Tunnels on the ice, stacked three deep, three keys |
+| 40 | The Cat Palace | Everything, with three doors in front of the mouse |
 
 From room 21 on, the rooms are mazes with locks. A key opens every gate of its colour (red, gold or
 purple) for the rest of the room. A cat flap in a wall only swings the way its arrow points, and dogs
 and vacuums don't fit through one, so a flap can keep the dog out. Each time the cat walks onto a light
 switch, the pink blocks and the mint blocks swap: the solid ones open and the open ones (a dashed
 outline) fill in. Pink starts solid. Every level card from room 21 on has a one-line tip.
+
+Rooms 31 to 40 put cactus pots and bouncing balls on ice, where the cat can't stop and has to jump or
+time its slide, and hide whole rooms that only a tunnel reaches, sometimes a tunnel inside a room that
+only another tunnel reaches. There are six tunnel colours now (orange, purple, green, pink, blue and
+yellow), so a room can stack up to six pairs.
 
 The cat starts with 5 lives and gets another one every 1000 points or from a heart. Being caught by
 the dog, the vacuum or a ball, or touching a cactus, costs a life and starts the room over. Esc does
@@ -95,7 +115,7 @@ a cheat key was used don't post a score.
 ## Files
 
 - `index.html`, the page and the touch buttons.
-- `levels.js`, the thirty rooms drawn as text, with the key to every character at the top. Edit a room
+- `levels.js`, the forty rooms drawn as text, with the key to every character at the top. Edit a room
   there and run the level check.
 - `art.js`, all the drawing: rooms, cats, mice, the dog, the vacuum, the ball and everything else.
 - `game.js`, the rules, the sounds and the screens.
@@ -104,6 +124,9 @@ a cheat key was used don't post a score.
   cat can't get stuck anywhere it can no longer finish, such as behind a flap or on the wrong side
   of the switch (`node tools/check-levels.js`). With `--needs` it also lists the keys, buttons and
   switches a room can't be finished without, which shows a lock really is a lock.
+- `tools/ice-jumps.js`, for every cactus pot on ice, tries every moment to jump from each square
+  beside it and prints how many frames of timing work (`node tools/ice-jumps.js`). At full slide a kid
+  gets about 10 frames, a third of a second at speed 5.
 - `tools/fuzz.js`, random play on every room, checking nothing breaks (`node tools/fuzz.js`).
 - `tools/sim.js`, plays a room with a key script and prints where the cat is.
 - `tools/gallery.html`, every cat in every pose and the rest of the art, drawn big.

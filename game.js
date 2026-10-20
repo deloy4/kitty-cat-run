@@ -22,7 +22,7 @@ function rand() {
 
 const G = {
   screen: 'title', level: 0, score: 0, lives: START_LIVES, speed: 5, newLife: 0,
-  grid: null, door: null, start: null, monsters: [], pads: [[], [], []], digs: [], pickups: [],
+  grid: null, door: null, start: null, monsters: [], pads: [], digs: [], pickups: [],
   gifts: 0, giftsTotal: 0, doorCount: 0, doorOpen: false, shield: 0, stun: 0, pressed: [false, false, false],
   keys: [false, false, false], info: 0, t: 0, timer: 0,
 };
@@ -43,6 +43,8 @@ function tileAt(px, py) {
 }
 const solid = (t) => t >= 40;
 const ladder = (t) => t >= 1 && t <= 3;
+// tunnels come in six colours, tiles 6 to 11
+const pad = (t) => t >= 6 && t <= 11;
 const solidOrLadder = (t) => t >= 40 || ladder(t);
 const sign = (v) => (v > 0) - (v < 0);
 const toward0 = (v, d) => (Math.abs(v) <= d ? 0 : v - d * sign(v));
@@ -60,10 +62,10 @@ function loadLevel() {
   G.monsters = L.monsters.map(([type, c, r]) => ({
     type, frame: FIRST[type] ?? 0, x: c * U, y: r * U, vx: 0, vy: 0, st: 0, stuck: 0, px: c * U, py: r * U, face: -1,
   }));
-  G.pads = [[], [], []];
+  G.pads = [[], [], [], [], [], []];
   for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
     const v = G.grid[cellIndex(c, r)];
-    if (v >= 6 && v <= 8) G.pads[v - 6].push([c, r]);
+    if (pad(v)) G.pads[v - 6].push([c, r]);
   }
   G.giftsTotal = G.grid.filter((v) => v === 4).length;
   G.gifts = 0;
@@ -244,9 +246,9 @@ let step = function () {
   // 9. pounce buttons, and Down in a tunnel
   if (centre >= 33 && centre <= 35 && !G.pressed[centre - 33] && !S.dying) { pressButton(centre - 33); S.pounce = 16; points += 25; }
   if (S.pounce > 0) S.pounce--;
-  if (dy > 0 && !shifter && !jet && centre >= 6 && centre <= 8 && !S.teleport) {
+  if (dy > 0 && !shifter && !jet && pad(centre) && !S.teleport) {
     if (!S.padLatch) { S.teleport = (centre - 6) * 1000 + 1; S.padLatch = true; }
-  } else if (!(centre >= 6 && centre <= 8) || dy <= 0) S.padLatch = false;
+  } else if (!pad(centre) || dy <= 0) S.padLatch = false;
   // the light switch flips once each time the cat comes onto it
   if ((centre === 30 || centre === 31) && !S.dying) { if (!S.switchLatch) { flipSwitch(); points += 5; } S.switchLatch = true; }
   else S.switchLatch = false;
@@ -832,7 +834,7 @@ function drawTheCat(alpha, t) {
   if (shieldOn) drawBubble(ctx, cx, cy, t, G.shield <= 50);
   // a hint over a tunnel: press Down
   const centre = tileAt((S.x >> 5) + 6, (S.y >> 5) + 6);
-  if (centre >= 6 && centre <= 8 && !S.teleport && S.mode === 1) {
+  if (pad(centre) && !S.teleport && S.mode === 1) {
     const b = Math.sin(t * 6) * 1;
     ctx.fillStyle = 'rgba(255,255,255,0.95)';
     ctx.strokeStyle = 'rgba(80, 60, 120, 0.6)'; ctx.lineWidth = 0.5;

@@ -38,7 +38,7 @@ drawWater(g, 230, 160, 1, false, () => 0);
 drawPickup(g, 0, 244, 160, t, false);
 drawBubble(g, 230, 180, t, false); drawCat(g, 230, 180, CATS[9], { mode: 'stand', face: 1 }, t);
 drawBoxKnocked(g, 244, 180, 0.4, 2);
-// keys, cat flaps, the light switch both ways, gates, and the pink block solid and the mint block open
-const locks = [24, 25, 26, 28, 29, 30, 31, 80, 81, 82, 84, 85 | 0x80];
+// keys, cat flaps, the light switch both ways, gates, the pink block solid and the mint block open, and the six tunnels
+const locks = [24, 25, 26, 28, 29, 30, 31, 80, 81, 82, 84, 85 | 0x80, 6, 7, 8, 9, 10, 11];
 locks.forEach((v, i) => drawTile(g, v, 160 + (i % 6) * 15, 200 + Math.floor(i / 6) * 15, i, 0, t, () => 0, th, [false, false]));
 </script></body></html>

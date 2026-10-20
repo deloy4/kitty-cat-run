@@ -1,4 +1,4 @@
-// The thirty levels. Each map is 16 rows of 26 characters, and buildLevel() turns it into the tile
+// The forty levels. Each map is 16 rows of 26 characters, and buildLevel() turns it into the tile
 // numbers the game runs on (the same numbers the Jetpack Christmas engine uses). A level can also
 // have a tip, one short line shown on its level card.
 //
@@ -7,7 +7,8 @@
 //   ~  slippery floor        _  sticky tape floor       >  <  treadmill floor, carries right / left
 //   ^  cactus (costs a life) w v u  sprinkler water, blue / pink / green
 //   1 2 3  pounce button that turns off the same colour sprinkler for good
-//   T U V  tunnels: press Down in one to come out of the other of the same colour
+//   T U V W X Z  tunnels (orange, purple, green, pink, blue, yellow): press Down in one to come out of
+//      the other of the same colour. Use each colour for one pair only, or the cat comes out at a random one
 //   f feather 10   b bell 25   F fish 50   h heart (extra life)   k bone (dogs sit for a while)
 //   C  where the cat starts   M  the mouse (2 x 2, top-left)   D dog   R robot vacuum   L bouncy ball
 //   r o p  key, red / gold / purple: opens every gate of its colour, 4 5 6 (red / gold / purple)
@@ -657,6 +658,228 @@ const MAPS = [
       '##########################',
     ],
   },
+
+  // ---------- rooms 31 to 40: ice with cactus pots and balls on it, and tunnels stacked deep ----------
+  {
+    name: 'The Ice Rink',
+    tip: 'On ice you can\'t stop. Jump the cactus pots as you slide!',
+    map: [
+      '..........................',
+      '.MM.......................',
+      '.MM.t..^...t..^....t......',
+      '###~~~~~~~~~~~~~~~~###H###',
+      '....................4.H...',
+      '...............L....4.H...',
+      '....t....^...r...t..4.H.t.',
+      '#H######~~~~~~~~~~~~######',
+      '.H........................',
+      '.H..........L.............',
+      '.H..t...^......t.....t....',
+      '##~~~~~~~~~~~~~~~~~~~~#H##',
+      '.......................H..',
+      '.......................H..',
+      '.C..t....^...t..^...t..H..',
+      '####~~~~~~~~~~~~~~~~~~####',
+    ],
+  },
+  {
+    name: 'The Portal Room',
+    tip: 'Some rooms only open through a tunnel. Follow them deeper!',
+    map: [
+      '........5....#............',
+      '.MM.....5....#............',
+      '.MM.t...5..X.#.V....^.t..W',
+      '#################~~~~~~~~#',
+      '............#.............',
+      '......R.....#......L......',
+      '.U..t..t..V.#.W..t..o..tX.',
+      '##########################',
+      '.............#............',
+      '.........D...#............',
+      '.t.....t...t.#.T..t..^.tU.',
+      '####H#####################',
+      '....H.....................',
+      '....H.....................',
+      '.C..H..t...^...t.....T.t..',
+      '##########################',
+    ],
+  },
+  {
+    name: 'The Frozen Pond',
+    tip: 'Slide through the flaps, and watch for balls on the ice.',
+    map: [
+      '.....6....................',
+      '.MM..6.....L..............',
+      '.MM..6...t.....^...t......',
+      '#######~~~~~~~~~~~~~~~#H##',
+      '..........4............H..',
+      '..........4.........L..H..',
+      '.t..t.....4.....^..t..tH.t',
+      '######H#####~~~~~~~~~~~###',
+      '......H......#............',
+      '......H..D...#............',
+      '....t.H...p..(..t.^...t...',
+      '##H###########~~~~~~~~~~H#',
+      '..H..................#..H.',
+      '..H.............L....#..H.',
+      'C.H.t.....^..r.....t.)..Ht',
+      '####~~~~~~~~~~~~~~~~~#####',
+    ],
+  },
+  {
+    name: 'The Hall of Doors',
+    tip: 'The switch picks which tunnel you can reach.',
+    map: [
+      '................45........',
+      '................45....MM..',
+      '.V..t...^....t..45.t..MM..',
+      '###~~~~~~~~~~~~###########',
+      '............#.............',
+      '............#......R......',
+      '.t.......t..#.T..t.r...tV.',
+      '#####H####################',
+      '.....H.......#............',
+      '.....H...D...#............',
+      's.t..H..t....#.U..t..^.o.t',
+      '#########H################',
+      '...+.....H............*...',
+      '...+.....H............*...',
+      '.U.+..C..H...t..t.....*.T.',
+      '##########################',
+    ],
+  },
+  {
+    name: 'The Ice Palace',
+    tip: 'Slippery floors, two switches, and one of them up on a shelf.',
+    map: [
+      '...5......................',
+      '.MM5......L...............',
+      '.MM5..t.......^....t......',
+      '####~~~~~~~~~~~~~~~~~~#H##',
+      '..........4.Hs.........H..',
+      '..........4.H#.....L...H..',
+      '.t.....t..4.H......t..tH.t',
+      '###H#########~~~~++++~~###',
+      '...H......................',
+      '...H..R...................',
+      '.t.H..r.......t...^...t...',
+      '##########****~~~~~~~~~H##',
+      '.......................H..',
+      '...............L.......H..',
+      '.C..t..^...o......t....H.s',
+      '###~~~~~~~~~~~~~~~~~~~####',
+    ],
+  },
+  {
+    name: 'The Portal Maze',
+    tip: 'Four tunnels and three keys. Where does each one go?',
+    map: [
+      '........#........5........',
+      '........#........5....MM..',
+      '.t..r.W.(.t.....t5.t..MM..',
+      '##H##########H############',
+      '..H.....#....H...#........',
+      '..H..R..#....H...#........',
+      '.tH....t#.T.tH.t.).t....U.',
+      '#####H####################',
+      '.....H..#........#........',
+      '.....H..#..D.....#...L....',
+      '.t...H.t#.t....p.#.U..t.V.',
+      '###H########H#############',
+      '...H.4..#...H....6........',
+      '...H.4..#...H....6........',
+      '.C.H.4.T#.V.H.tW.6.t...t.o',
+      '##########################',
+    ],
+  },
+  {
+    name: 'The Glacier',
+    tip: 'Dogs don\'t slide on ice, but they can\'t get through the flaps either.',
+    map: [
+      '.....5....................',
+      '..MM.5....L...............',
+      '..MM.5..t.....^..t........',
+      '#######~~~~~~~~~~~~~~#H###',
+      '........4........#....H...',
+      '........4........#.D..H...',
+      '.t.....t4...^..o.).t..H..t',
+      '#####H###~~~~~~~~###H#####',
+      '.....H..#........#..H.....',
+      '.....H..#...D....#..H.....',
+      '.t..kH.r(.t....t.(..H.t...',
+      '##H######~~~~~~~~#######H#',
+      '..H..................#..H.',
+      '..H...........L......#..H.',
+      '.CH.t....^......t....)t.Ht',
+      '####~~~~~~~~~~~~~~~~~#####',
+    ],
+  },
+  {
+    name: 'The Wizard\'s Tower',
+    tip: 'A tunnel can lead to a shut door. Flip the switch and try again.',
+    map: [
+      '.............#...4........',
+      '.............#MM.4........',
+      '.tV..t....o..#MM.4...t...t',
+      '####################H#####',
+      '...*.Hs....+........H.....',
+      '...*.H#....+....R...H.....',
+      '.T.*.H..tr.+.t.....tH....t',
+      '##########################',
+      '..........................',
+      '..................D.......',
+      '.V...t.....t...t.....t..t.',
+      '############H#############',
+      '............H........5....',
+      '............H........5....',
+      's..C.t......H...^..t.5.T.t',
+      '#############~~~~~~~######',
+    ],
+  },
+  {
+    name: 'The North Pole',
+    tip: 'Press Down as you slide to dive into a tunnel on the ice.',
+    map: [
+      '....6..........#..........',
+      '.MM.6..........#..........',
+      '.MM.6..t^..t...#.U...^.o.V',
+      '######~~~~~~~~H###~~~~~~##',
+      '...........#..H...5.......',
+      '.......L...#..H...5.......',
+      '.U.t.r...T.#.tH...5.t....t',
+      '######################H###',
+      '..........#.....4.....H...',
+      '..........#.....4..D..H...',
+      '.tV....p..#t....4..t..H..t',
+      '#############H############',
+      '.............H............',
+      '.............H..L.........',
+      '.C..t...^....H..t..T...tt.',
+      '####~~~~~~~~~~~~~~~~~~~###',
+    ],
+  },
+  {
+    name: 'The Cat Palace',
+    tip: 'Everything at once. Good luck!',
+    map: [
+      '.............#......65+...',
+      '.............#...L..65+MM.',
+      's..V...p..tk.).t....65+MM.',
+      '##############~~~~~H######',
+      '...........#.......H......',
+      '......R....#...D...H......',
+      '.U..r...tT.#..t....H...tW.',
+      '##########################',
+      '........*.w..#.........4..',
+      '........*.w..#.........4..',
+      's.t.t...*.w.T#.U.t..^.o4tV',
+      '######H#########~~~~~~~###',
+      '...B..H...................',
+      '...B..H..........L........',
+      '.C.Bt.HW....^..t....t...1t',
+      '########~~~~~~~~~~~~~~~###',
+    ],
+  },
 ];
 
 const TILE_OF = {
@@ -667,7 +890,7 @@ const TILE_OF = {
 };
 const MONSTER_OF = { D: 1, R: 2, L: 3 };
 // the mint blocks start open, so they carry the "open" bit (0x80) from the start
-Object.assign(TILE_OF, { r: 24, o: 25, p: 26, 4: 80, 5: 81, 6: 82, ')': 28, '(': 29, s: 30, '*': 84, '+': 85 | 0x80 });
+Object.assign(TILE_OF, { W: 9, X: 10, Z: 11, r: 24, o: 25, p: 26, 4: 80, 5: 81, 6: 82, ')': 28, '(': 29, s: 30, '*': 84, '+': 85 | 0x80 });
 
 // Positions in the result count from 1, because the engine keeps a wall all the way round the map.
 function buildLevel({ name, map, tip }) {

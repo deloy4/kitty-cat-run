@@ -67,6 +67,26 @@ const CATS = [
     belly: '#fffaf4', paw: '#fffaf4', ear: '#e8a8a8', nose: '#e0909c', eye: '#9be27a', muzzle: '#fffaf4' },
   { name: 'Twinkle', kind: 'a lemon and sky striped kitten', pattern: 'candy', base: '#fffdf6', shade: '#ece6da', light: '#ffffff', stripe: '#ffd86a',
     stripe2: '#96d2f4', belly: '#ffffff', paw: '#ffffff', ear: '#f5aebd', nose: '#f19bb0', eye: '#f2a43a' },
+  { name: 'Pebble', kind: 'a blue cream cat', pattern: 'calico', base: '#b8bfcc', shade: '#959dac', light: '#d8dde6', stripe: '#7c8496',
+    patch: '#ecd2a6', belly: '#e6e9ee', paw: '#e6e9ee', ear: '#e8b0b8', nose: '#d898a4', eye: '#e8b040' },
+  { name: 'Mochi', kind: 'a chocolate point Siamese', pattern: 'pointed', base: '#f6ecdc', shade: '#e0d0b8', light: '#fffaf2', stripe: '#6e4a36',
+    belly: '#fffaf4', paw: '#6e4a36', ear: '#7a5644', nose: '#7a5a4e', eye: '#4a9ef0', leg: '#7e5a46', legFar: '#5a3c2c', tail: '#6e4a36' },
+  { name: 'Juniper', kind: 'a silver and white cat', pattern: 'tuxedo', base: '#bcc2cc', shade: '#9aa0ac', light: '#dde1e8', stripe: '#9aa0ac',
+    belly: '#ffffff', paw: '#ffffff', ear: '#f2b4bc', nose: '#ec94a4', eye: '#8fd06a', muzzle: '#ffffff' },
+  { name: 'Nutmeg', kind: 'a red tabby', pattern: 'tabby', base: '#e0884a', shade: '#c06a30', light: '#f6b886', stripe: '#a24e1e',
+    belly: '#fbe6d2', paw: '#f6dcc4', ear: '#f2a8a0', nose: '#e48890', eye: '#9ac860' },
+  { name: 'Willow', kind: 'a smoke grey cat', pattern: 'solid', base: '#7e808c', shade: '#62646e', light: '#a2a4ae', stripe: '#62646e',
+    belly: '#94969f', paw: '#94969f', ear: '#d4a0ac', nose: '#b88a96', eye: '#f2c443' },
+  { name: 'Ziggy', kind: 'a gold and black calico', pattern: 'calico', base: '#fbf3e4', shade: '#e4d8c4', light: '#ffffff', stripe: '#3a3238',
+    patch: '#e8b040', belly: '#ffffff', paw: '#ffffff', ear: '#f4b2b8', nose: '#ec94a2', eye: '#68b6e2' },
+  { name: 'Marble', kind: 'a marble tabby', pattern: 'tabby', base: '#c8b49a', shade: '#a8947a', light: '#e4d4c0', stripe: '#6a5440',
+    belly: '#f4ece0', paw: '#eee4d6', ear: '#eeaaa8', nose: '#dc8e94', eye: '#8fd06a' },
+  { name: 'Oreo', kind: 'a black cat with a white chest', pattern: 'tuxedo', base: '#2e2a32', shade: '#1e1b22', light: '#4e4956', stripe: '#1e1b22',
+    belly: '#fbfaf8', paw: '#3a3640', ear: '#c88a98', nose: '#d07f8f', eye: '#ffd23a', muzzle: '#3a3640' },
+  { name: 'Ember', kind: 'a cinnamon and white cat', pattern: 'tuxedo', base: '#c87850', shade: '#a85a36', light: '#e6a080', stripe: '#a85a36',
+    belly: '#fffaf6', paw: '#fffaf6', ear: '#f0aaa6', nose: '#e48c96', eye: '#5aa8f0', muzzle: '#fffaf6' },
+  { name: 'Stardust', kind: 'a pink and lilac striped kitten', pattern: 'candy', base: '#fffbfd', shade: '#ece2ea', light: '#ffffff', stripe: '#ffb0cc',
+    stripe2: '#c8b0f4', belly: '#ffffff', paw: '#ffffff', ear: '#f5aebd', nose: '#f19bb0', eye: '#e0609a' },
 ];
 
 const MICE = [
@@ -100,6 +120,16 @@ const MICE = [
   { name: 'mink', fur: '#8e7464', shade: '#6e5646', belly: '#cbb6a8' },
   { name: 'rose', fur: '#e6c0c4', shade: '#c8a0a6', belly: '#f8e4e6' },
   { name: 'sable', fur: '#5a4438', shade: '#422e24', belly: '#968070' },
+  { name: 'frost', fur: '#e8eef4', shade: '#c8d2dc', belly: '#ffffff' },
+  { name: 'cocoa', fur: '#8a5e44', shade: '#6a442e', belly: '#c8a48c' },
+  { name: 'oat', fur: '#dcc8a4', shade: '#bea884', belly: '#f4ead6' },
+  { name: 'pewter', fur: '#8c9098', shade: '#6e727a', belly: '#c2c6cc' },
+  { name: 'apricot', fur: '#f0b47c', shade: '#d2945c', belly: '#fcdcc0' },
+  { name: 'storm', fur: '#5e6474', shade: '#464c5a', belly: '#9aa0ae' },
+  { name: 'vanilla', fur: '#fbf0d8', shade: '#e4d4b4', belly: '#fffaf0' },
+  { name: 'walnut', fur: '#6e4e3a', shade: '#523626', belly: '#ac8c76' },
+  { name: 'blush', fur: '#f2c8cc', shade: '#d6a8ae', belly: '#fde8ea' },
+  { name: 'starlight', fur: '#eae6f6', shade: '#ccc6e0', belly: '#faf8ff' },
 ];
 
 // The room behind each level: wallpaper, then the colour and kind of the walls and floors.
@@ -134,13 +164,24 @@ const THEMES = [
   { bg: ['#e8f0ff', '#d0dcf4'], paper: 'tiles', ink: 'rgba(110, 140, 200, 0.2)', block: ['#e0c890', '#c4a462', '#94783c'], kind: 'wood' },
   { bg: ['#d8f2ff', '#effbea'], paper: 'sky', ink: 'rgba(255, 255, 255, 0.85)', block: ['#9ad87e', '#62b04a', '#3e8030'], kind: 'hedge' },
   { bg: ['#fff0f6', '#f2e2ff'], paper: 'stripes', ink: 'rgba(200, 150, 240, 0.14)', block: ['#ffd27a', '#f6a94e', '#cf7f2e'], kind: 'toy' },
+  { bg: ['#e6f4ff', '#cfe6fa'], paper: 'snow', ink: 'rgba(255, 255, 255, 0.95)', block: ['#ffffff', '#dceaf6', '#a8c4dc'], kind: 'pillow' },
+  { bg: ['#2a2a5a', '#40306e'], paper: 'stars', ink: 'rgba(255, 240, 210, 0.85)', block: ['#e0c8ff', '#b49ae8', '#7e62c0'], kind: 'tile' },
+  { bg: ['#dff4f8', '#c4e6ee'], paper: 'snow', ink: 'rgba(255, 255, 255, 0.9)', block: ['#d8f0f4', '#a8d8e4', '#74aec0'], kind: 'tile' },
+  { bg: ['#fff4ea', '#f2dcc6'], paper: 'stripes', ink: 'rgba(200, 130, 90, 0.13)', block: ['#c89068', '#a06c48', '#74482c'], kind: 'wood' },
+  { bg: ['#e8eeff', '#d4dcfa'], paper: 'snow', ink: 'rgba(255, 255, 255, 0.95)', block: ['#f4f6ff', '#d0d8f4', '#9eaad6'], kind: 'tile' },
+  { bg: ['#1e3a4a', '#2e5060'], paper: 'stars', ink: 'rgba(220, 255, 240, 0.8)', block: ['#9ae0d0', '#5ab8a6', '#358474'], kind: 'tile' },
+  { bg: ['#d6ecf8', '#eef8ff'], paper: 'snow', ink: 'rgba(255, 255, 255, 0.95)', block: ['#e4f2fa', '#b6d6ea', '#84aac6'], kind: 'concrete' },
+  { bg: ['#3a2c5c', '#5a3a78'], paper: 'stars', ink: 'rgba(255, 240, 210, 0.85)', block: ['#b8a4d8', '#8e78bc', '#62508e'], kind: 'concrete' },
+  { bg: ['#cfe4f8', '#eaf4ff'], paper: 'snow', ink: 'rgba(255, 255, 255, 0.95)', block: ['#ffffff', '#f0d8dc', '#d0a0a8'], kind: 'pillow' },
+  { bg: ['#fff0f6', '#f6e2ff'], paper: 'dots', ink: 'rgba(255, 130, 180, 0.16)', block: ['#ffe6a0', '#f0c060', '#c09030'], kind: 'toy' },
 ];
 
 const TOY = ['#ff9aa8', '#ffc66b', '#9ad98a', '#84c6f2', '#c2a2f0'];
 const WATER_HEAD = [['#9fd2ff', '#3f95e8', '#1f5aa8'], ['#ffb0cb', '#ee5f92', '#a8305c'], ['#a8eaa4', '#3fbf5a', '#20803a']];
 const KEY = [['#ffa0a8', '#e8475a', '#a82838'], ['#ffe08a', '#f2b632', '#b07a10'], ['#dcc0ff', '#9a62e6', '#5e34a0']];
 const SWAP = [['#ffc2d8', '#ff86b0', '#d0507e'], ['#c4f4de', '#5fd6a4', '#2a9a6c']];
-const TUNNEL = [['#ffc285', '#f28a2c', '#a8541a'], ['#d6b4ff', '#9a62e6', '#5e34a0'], ['#a6eec0', '#36b878', '#1d7a4c']];
+const TUNNEL = [['#ffc285', '#f28a2c', '#a8541a'], ['#d6b4ff', '#9a62e6', '#5e34a0'], ['#a6eec0', '#36b878', '#1d7a4c'],
+  ['#ffb8d4', '#f0609a', '#a8305e'], ['#b4e2ff', '#3ea2ea', '#1c5e9c'], ['#fff0a0', '#e8c020', '#9a7a08']];
 
 // Small fixed hash so textures don't shimmer between redraws.
 function hash(x, y, k = 0) {
@@ -471,7 +512,7 @@ function drawBone(g, x, y, t) {
   g.restore();
 }
 
-// Tiles 6-8: a fabric cat tunnel opening, one colour per pair.
+// Tiles 6-11: a fabric cat tunnel opening, one colour per pair.
 function drawTunnel(g, x, y, c, t) {
   const [l, m, d] = TUNNEL[c];
   const cx = x + 6, cy = y + 6.6;
@@ -679,7 +720,7 @@ function drawSwitch(g, x, y, mint, t) {
 // ---------- tile dispatch ----------
 
 // Tiles drawn every frame instead of into the level's backing picture, because they move or change.
-const LIVE = new Set([4, 6, 7, 8, 15, 16, 19, 20, 21, 22, 23, 24, 25, 26, 30, 31, 33, 34, 35, 74, 75, 76, 77, 78, 79, 115, 118]);
+const LIVE = new Set([4, 6, 7, 8, 9, 10, 11, 15, 16, 19, 20, 21, 22, 23, 24, 25, 26, 30, 31, 33, 34, 35, 74, 75, 76, 77, 78, 79, 115, 118]);
 
 // cell is the raw map byte: bit 0x80 marks a swiped box or a sprinkler turned off.
 // look(dx, dy) gives a neighbouring cell (-1 off the map). pressed[c] says a button colour is done.
@@ -692,7 +733,7 @@ function drawTile(g, cell, x, y, cx, cy, t, look, th, pressed) {
     case 0: return;
     case 1: case 2: case 3: return drawPost(g, x, y, look);
     case 4: return drawTreat(g, x, y, t);
-    case 6: case 7: case 8: return drawTunnel(g, x, y, tile - 6, t);
+    case 6: case 7: case 8: case 9: case 10: case 11: return drawTunnel(g, x, y, tile - 6, t);
     case 15: return drawYarn(g, x, y, true, t);
     case 16: return drawYarn(g, x, y, false, t);
     case 19: return drawBone(g, x, y, t);

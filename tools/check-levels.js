@@ -19,7 +19,7 @@ ctx.MAPS.forEach((L, n) => {
   const { problems, size, canFly, treatCount } = check(L.map);
   let need = '';
   if (needs && !problems.length) {
-    const names = { r: 'red key', o: 'gold key', p: 'purple key', 1: 'button 1', 2: 'button 2', 3: 'button 3', s: 'switch', y: 'yarn', Y: 'big yarn', B: 'boxes', T: 'tunnel T', U: 'tunnel U', V: 'tunnel V' };
+    const names = { r: 'red key', o: 'gold key', p: 'purple key', 1: 'button 1', 2: 'button 2', 3: 'button 3', s: 'switch', y: 'yarn', Y: 'big yarn', B: 'boxes', T: 'tunnel T', U: 'tunnel U', V: 'tunnel V', W: 'tunnel W', X: 'tunnel X', Z: 'tunnel Z' };
     const used = Object.keys(names).filter((ch) => L.map.join('').includes(ch));
     const must = used.filter((ch) => check(L.map.map((row) => row.split(ch).join(ch === 'B' ? '#' : '.'))).problems.some((p) => p.startsWith('CANNOT')));
     need = `\n     needs: ${must.map((ch) => names[ch]).join(', ') || 'nothing'}`;
@@ -112,7 +112,7 @@ function check(map) {
       if (at(c, r + 1) === 'B' && !removed.has(cell(c, r + 1))) { t.add(cell(c, r + 1)); if (!solid(c, r + 2, st)) go(c, r + 2); }
       if (post(c, r) && at(c, r - 1) === 'B' && !removed.has(cell(c, r - 1))) { removed.add(cell(c, r - 1)); changed = true; }
       if (post(c, r) || post(c, r + 1)) { if (!solid(c, r - 1, st) && post(c, r)) go(c, r - 1); if (post(c, r + 1)) go(c, r + 1); }
-      if ('TUV'.includes(at(c, r))) m.forEach((row, rr) => row.forEach((x, cc) => { if (x === at(c, r) && (cc !== c || rr !== r)) go(cc, rr); }));
+      if ('TUVWXZ'.includes(at(c, r))) m.forEach((row, rr) => row.forEach((x, cc) => { if (x === at(c, r) && (cc !== c || rr !== r)) go(cc, rr); }));
       // standing on the switch, a jump straight up and down flips it again
       if (at(c, r) === 's' && !solid(c, r - 1, st)) add(c, r, st ^ 1, id, t);
       if (st & 128) for (const [dc, dr] of [[0, -1], [0, 1], [-1, 0], [1, 0], [-1, -1], [1, -1]]) {
