@@ -1,5 +1,5 @@
 // Runs the game with no screen and a key script, printing where the cat is.
-// usage: node tools/sim.js <level 1-10> "frames:keys,frames:keys,..." [f]
+// usage: node tools/sim.js <level 1-30> "frames:keys,frames:keys,..." [f]
 // keys are any of L R U D J S (left, right, up, down, jump/fly, swipe); f fills the yarn meter first.
 const fs = require('fs'), vm = require('vm'), path = require('path');
 const dir = path.join(__dirname, '..');
@@ -17,6 +17,6 @@ for (const part of script.split(',').filter(Boolean)) {
   vm.runInContext('held.clear()', ctx);
   for (const k of keys) vm.runInContext(`held.add('${map[k]}')`, ctx);
   for (let i = 0; i < +frames; i++) { vm.runInContext('if (G.screen === "play") step()', ctx); n++; }
-  const s = vm.runInContext('({x: S.x, y: S.y, fuel: S.fuel, screen: G.screen, gifts: G.gifts, total: G.giftsTotal, pressed: G.pressed.join(""), dying: S.dying})', ctx);
-  console.log(String(n).padStart(4), `${keys.padEnd(3)} col=${((s.x / 384) - 1).toFixed(2)} row=${((s.y / 384) - 1).toFixed(2)} fuel=${s.fuel} treats=${s.gifts}/${s.total} ${s.screen}${s.dying ? ' caught' : ''} pressed=${s.pressed}`);
+  const s = vm.runInContext('({x: S.x, y: S.y, fuel: S.fuel, screen: G.screen, gifts: G.gifts, total: G.giftsTotal, pressed: G.pressed.map(Number).join(""), keys: G.keys.map(Number).join(""), mint: G.grid.includes(31), dying: S.dying, cause: S.cause})', ctx);
+  console.log(String(n).padStart(4), `${keys.padEnd(3)} col=${((s.x / 384) - 1).toFixed(2)} row=${((s.y / 384) - 1).toFixed(2)} fuel=${s.fuel} treats=${s.gifts}/${s.total} ${s.screen}${s.dying ? ' caught by ' + s.cause : ''} pressed=${s.pressed} keys=${s.keys}${s.mint ? ' switch=mint' : ''}`);
 }

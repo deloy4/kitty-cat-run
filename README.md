@@ -12,7 +12,7 @@ tanks filled the jetpack, and with yarn the cat's tail spins like a helicopter a
 swipe knocks boxes away where the Phase Shifter tunnelled through brick, and swiped boxes stay gone.
 The exit is a mouse instead of a door, and the robot that chased Santa is now a dog.
 
-## The twenty rooms
+## The thirty rooms
 
 Each level has its own cat and mouse colour, always in the same order: Pumpkin the orange tabby,
 Smokey the grey tabby, Midnight the black cat, Snowball the white cat, Tux the tuxedo, Patches the
@@ -20,9 +20,12 @@ calico, Butterscotch the cream cat, Cocoa the brown tabby, Luna the Siamese, and
 blue striped kitten from the reference picture. Rooms 11 to 20 bring Ginger the orange and white cat,
 Bluebell the Russian Blue, Tortie the tortoiseshell, Silver the silver tabby, Socks the grey and white
 cat, Mocha the chocolate cat, Sunny the flame point Siamese, Domino the black and white cat, Lilac,
-and Sprinkles, a lavender and mint striped kitten. The mice go grey, brown, white, tan, charcoal,
-fawn, cinnamon, silver, chocolate, cream, agouti, lilac, champagne, blue, black, dove, ivory, smoke,
-honey and pearl.
+and Sprinkles, a lavender and mint striped kitten. Rooms 21 to 30 bring Cinnamon the cinnamon tabby,
+Peaches the peach and white cat, Frost the blue point Siamese, Pepper the dark grey tabby, Maple the
+maple calico, Biscuit the fawn cat, Clover the soft grey calico, Hazel the golden tabby, Mittens the
+brown and white cat, and Twinkle, a lemon and sky striped kitten. The mice go grey, brown, white, tan,
+charcoal, fawn, cinnamon, silver, chocolate, cream, agouti, lilac, champagne, blue, black, dove, ivory,
+smoke, honey, pearl, russet, snow, ash, caramel, peach, slate, butter, mink, rose and sable.
 
 | Level | Room | What it adds |
 | --- | --- | --- |
@@ -46,6 +49,22 @@ honey and pearl.
 | 18 | The Treehouse | Two tall trunks to climb, balls on the branches |
 | 19 | The Snowy Porch | Ice on every floor |
 | 20 | The Rooftop | A bit of everything again, three hazards at once |
+| 21 | The Front Hall | Keys and gates: the red key opens the way to the gold key |
+| 22 | The Mud Room | Cat flaps, one way only, around a loop the dog can't follow |
+| 23 | The Closets | Three keys locked inside each other, behind a sprinkler and boxes |
+| 24 | The Dining Room | A one-way ring of flaps that has to be gone round twice |
+| 25 | The Night Lights | The light switch, which swaps the pink and mint blocks |
+| 26 | The Workshop | A mint bridge for the red key, a pink bridge to the mouse |
+| 27 | The Cellar | A maze of flaps and three gates, two laps of it |
+| 28 | The Clock Tower | Two bridges that are never there together, two switches |
+| 29 | The Secret Garden | Keys, flaps, a tunnel and three flips of the switch |
+| 30 | The Toy Castle | Everything, with a switch up on a shelf |
+
+From room 21 on, the rooms are mazes with locks. A key opens every gate of its colour (red, gold or
+purple) for the rest of the room. A cat flap in a wall only swings the way its arrow points, and dogs
+and vacuums don't fit through one, so a flap can keep the dog out. Each time the cat walks onto a light
+switch, the pink blocks and the mint blocks swap: the solid ones open and the open ones (a dashed
+outline) fill in. Pink starts solid. Every level card from room 21 on has a one-line tip.
 
 The cat starts with 5 lives and gets another one every 1000 points or from a heart. Being caught by
 the dog, the vacuum or a ball, or touching a cactus, costs a life and starts the room over. Esc does
@@ -76,13 +95,15 @@ a cheat key was used don't post a score.
 ## Files
 
 - `index.html`, the page and the touch buttons.
-- `levels.js`, the twenty rooms drawn as text, with the key to every character at the top. Edit a room
+- `levels.js`, the thirty rooms drawn as text, with the key to every character at the top. Edit a room
   there and run the level check.
 - `art.js`, all the drawing: rooms, cats, mice, the dog, the vacuum, the ball and everything else.
 - `game.js`, the rules, the sounds and the screens.
 - `leaderboard.js`, the shared high score board.
-- `tools/check-levels.js`, checks every treat and the mouse can be reached in each room
-  (`node tools/check-levels.js`).
+- `tools/check-levels.js`, checks every treat and the mouse can be reached in each room, and that the
+  cat can't get stuck anywhere it can no longer finish, such as behind a flap or on the wrong side
+  of the switch (`node tools/check-levels.js`). With `--needs` it also lists the keys, buttons and
+  switches a room can't be finished without, which shows a lock really is a lock.
 - `tools/fuzz.js`, random play on every room, checking nothing breaks (`node tools/fuzz.js`).
 - `tools/sim.js`, plays a room with a key script and prints where the cat is.
 - `tools/gallery.html`, every cat in every pose and the rest of the art, drawn big.

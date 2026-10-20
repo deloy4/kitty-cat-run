@@ -1,5 +1,6 @@
-// The ten levels. Each map is 16 rows of 26 characters, and buildLevel() turns it into the tile
-// numbers the game runs on (the same numbers the Jetpack Christmas engine uses).
+// The thirty levels. Each map is 16 rows of 26 characters, and buildLevel() turns it into the tile
+// numbers the game runs on (the same numbers the Jetpack Christmas engine uses). A level can also
+// have a tip, one short line shown on its level card.
 //
 //   .  empty                 #  wall                    B  box (swipe it away)
 //   H  cat post (climb)      t  cat treat               y  yarn ball   Y  big yarn ball
@@ -9,6 +10,10 @@
 //   T U V  tunnels: press Down in one to come out of the other of the same colour
 //   f feather 10   b bell 25   F fish 50   h heart (extra life)   k bone (dogs sit for a while)
 //   C  where the cat starts   M  the mouse (2 x 2, top-left)   D dog   R robot vacuum   L bouncy ball
+//   r o p  key, red / gold / purple: opens every gate of its colour, 4 5 6 (red / gold / purple)
+//   )  (  cat flap: the cat goes through it only to the right / only to the left; dogs and vacuums can't
+//   s  light switch: each time the cat walks onto it, the pink blocks * and mint blocks + swap.
+//      Pink starts solid and mint starts open. Keep a switch off the squares next to those blocks.
 
 const MAPS = [
   {
@@ -431,6 +436,227 @@ const MAPS = [
       '##########################',
     ],
   },
+  // ---------- rooms 21 to 30: keys and gates, cat flaps, and the light switch ----------
+  {
+    name: 'The Front Hall',
+    tip: 'A key opens the gate of the same color.',
+    map: [
+      '.................5........',
+      '.................5....MM..',
+      '..t.....t...k....5..t.MM..',
+      '####H#####################',
+      '....H.......4.............',
+      '....H.......4.........R...',
+      '.t..H...t...4...t.....o.t.',
+      '#########H######~~~~######',
+      '.........H................',
+      '.........H........D.......',
+      '.t...^...H....t.......r...',
+      '################H#########',
+      '................H.........',
+      '................H.........',
+      '.C....t.....t...H..^..t...',
+      '##########################',
+    ],
+  },
+  {
+    name: 'The Mud Room',
+    tip: 'Cat flaps only swing one way, and dogs don\'t fit through them.',
+    map: [
+      '............#.............',
+      '.MM.........#.............',
+      '.MM...t.....(...t.....t...',
+      '####H##########H######H###',
+      '....H......#...H......H...',
+      '....H......#...H......H...',
+      '.t..H...t..)...H...t..H.t.',
+      '########H######~~~~#######',
+      '........H.....#...........',
+      '........H.....#...........',
+      '.t...k..H..t..(....t...t..',
+      '###H#################H####',
+      '...H.........#.......H....',
+      '...H.........#.......H....',
+      '.C.H...t.....)...D...H..t.',
+      '##########################',
+    ],
+  },
+  {
+    name: 'The Closets',
+    tip: 'Some keys are locked away too. Which one comes first?',
+    map: [
+      '................6.........',
+      '................6.....MM..',
+      '.t...k...t......6..t..MM..',
+      '#####H####################',
+      '.....H..#.....w..#........',
+      '.....H..#.....w..#........',
+      '.p...H.t#..t..w.o#.t....r.',
+      '###H#########H########H###',
+      '...H..4......H.....5..H...',
+      '...H..4..D...H.....5..H...',
+      '.t.H..4....t.H..t..5..H.t.',
+      '##########H###############',
+      '..........H......B........',
+      '..........H......B........',
+      '.C...t....H..t...B...t.1..',
+      '##########################',
+    ],
+  },
+  {
+    name: 'The Dining Room',
+    tip: 'Round and round! You may have to go the long way twice.',
+    map: [
+      '........#........#........',
+      '..MM....#........#........',
+      '..MM.t..(...o....(..t.....',
+      '.######################H##',
+      '........#........#.....H5.',
+      '........#....R...#.....H5.',
+      '.t......)..t.....)..t..H5t',
+      '.##H######################',
+      '...H....#........#........',
+      '...H....#...D....#........',
+      '.t.H..t.(....t...(..t...t.',
+      '.######################H##',
+      '........#........#.....H..',
+      '........#....L...#.....H..',
+      '.C..t...)..t..k..)..t..H.t',
+      '##########################',
+    ],
+  },
+  {
+    name: 'The Night Lights',
+    tip: 'The light switch swaps the pink blocks and the mint blocks.',
+    map: [
+      '..........................',
+      '......................MM..',
+      '.t.....t.........t....MM..',
+      '###H######################',
+      '...H....*.................',
+      '...H....*..........L......',
+      '.t.H....*...t.........t...',
+      '##################H#######',
+      '.............+....H.......',
+      '.....R.......+....H.......',
+      '.t....t......+..t.H.....t.',
+      '#########H############H###',
+      '.........H...*........H...',
+      '.........H...*........H...',
+      '.s..C.t..H...*..t..^..H.t.',
+      '##########################',
+    ],
+  },
+  {
+    name: 'The Workshop',
+    tip: 'Pink and mint bridges come and go when you flip the switch.',
+    map: [
+      '..........................',
+      '......................MM..',
+      '.t...t.......t.....t..MM..',
+      '##H#######****############',
+      '..H.............4.........',
+      '..H.......R.....4.........',
+      '.tH...t.....t...4.....t..s',
+      '######H###################',
+      '......H...................',
+      '......H...........L.......',
+      '.t....H.t.......t.....r.t.',
+      '######H###++++############',
+      '......H.........B.........',
+      '......H.........B.........',
+      '.C..t.H...t...D.B..^..t..s',
+      '##########################',
+    ],
+  },
+  {
+    name: 'The Cellar',
+    tip: 'A maze of flaps and gates. Find all three keys!',
+    map: [
+      '........#........6........',
+      '........#........6....MM..',
+      '.p...t..(..t.....6.t..MM..',
+      '###H##########H###########',
+      '...H....#.....H..#........',
+      '...H....#..R..H..#........',
+      '.t.H..t.)..t..H..#.t.....o',
+      '#####H#################H##',
+      '.....H..5........#.....H..',
+      '.....H..5.D......#.....H..',
+      '.t...H..5..t...r.(.t...H..',
+      '############H########H####',
+      '........#...H....4...H....',
+      '........#...H....4.L.H....',
+      '.....C..)...H.tk.4...H.t.t',
+      '##########################',
+    ],
+  },
+  {
+    name: 'The Clock Tower',
+    tip: 'Two bridges that are never there together. Flip at the right time!',
+    map: [
+      '................5.........',
+      '................5.....MM..',
+      '.s..t......t....5.t...MM..',
+      '############H#####****####',
+      '.........4..H.............',
+      '....L....4..H.............',
+      '.t....t..4..H..t.....t.o..',
+      '###H###########+++++######',
+      '...H......................',
+      '...H.R....................',
+      '.t.H..t.......t......r.t..',
+      '#######H##*****###########',
+      '.......H..................',
+      '.......H.........L........',
+      '.C..t..H...t.......t...t.s',
+      '##########################',
+    ],
+  },
+  {
+    name: 'The Secret Garden',
+    tip: 'Keys, flaps, a tunnel and a switch. Think before you flip!',
+    map: [
+      '........4........5........',
+      '........4........5....MM..',
+      '.s.p..t.4..t.....5.t..MM..',
+      '#############H############',
+      '........+....H...#........',
+      '........+..R.H...#........',
+      '.t....t.+..t.H...(rtT...t.',
+      '#####H####################',
+      '.....H..#........6........',
+      '.....H..#.D......6........',
+      'sk...H.t#.t......6..t...t.',
+      '###H########H#########H###',
+      '...H....*...H....#....H...',
+      '...H....*...H....#..L.H...',
+      '.C.H.t..*...H.tT.#.t..H.o.',
+      '##########################',
+    ],
+  },
+  {
+    name: 'The Toy Castle',
+    tip: 'A bit of everything. You can do it!',
+    map: [
+      '........#........#..5.....',
+      '........#........#MM5.....',
+      '.t..o...(..t..p..#MM5..t..',
+      '##H##########H########H###',
+      '..H.....*....H...#Hs.+H...',
+      '..H.....*..R.H...#H#.+H...',
+      '.tH.t...*..t.H...)H..+Ht.T',
+      '######H###################',
+      '......H.4........#........',
+      '......H.4.D......#........',
+      's..t..H.4.t..t...(.t....r.',
+      '###########H#########H####',
+      '........B..H.....w...H.6..',
+      '........B..H.....w.L.H.6..',
+      '.C..t...B.tH.^.1Tw.t.H.6tt',
+      '##########################',
+    ],
+  },
 ];
 
 const TILE_OF = {
@@ -440,9 +666,11 @@ const TILE_OF = {
   f: 20, b: 21, F: 22, h: 23, k: 19,
 };
 const MONSTER_OF = { D: 1, R: 2, L: 3 };
+// the mint blocks start open, so they carry the "open" bit (0x80) from the start
+Object.assign(TILE_OF, { r: 24, o: 25, p: 26, 4: 80, 5: 81, 6: 82, ')': 28, '(': 29, s: 30, '*': 84, '+': 85 | 0x80 });
 
 // Positions in the result count from 1, because the engine keeps a wall all the way round the map.
-function buildLevel({ name, map }) {
+function buildLevel({ name, map, tip }) {
   const tiles = [], monsters = [];
   let door = null, start = null;
   map.forEach((row, r) => {
@@ -456,7 +684,7 @@ function buildLevel({ name, map }) {
     });
   });
   if (map.length !== 16) throw new Error(`${name}: ${map.length} rows`);
-  return { name, tiles, door, start, monsters };
+  return { name, tip, tiles, door, start, monsters };
 }
 
 const LEVELS = MAPS.map(buildLevel);

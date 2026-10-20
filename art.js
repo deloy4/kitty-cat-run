@@ -47,6 +47,26 @@ const CATS = [
     belly: '#e2d8dc', paw: '#e2d8dc', ear: '#f2b8c6', nose: '#e8a0b4', eye: '#e8b040' },
   { name: 'Sprinkles', kind: 'a rainbow-striped kitten', pattern: 'candy', base: '#fdfbff', shade: '#e6e1ee', light: '#ffffff', stripe: '#c9b2f2',
     stripe2: '#a8e6c8', belly: '#ffffff', paw: '#ffffff', ear: '#f5aebd', nose: '#f19bb0', eye: '#9a7ae0' },
+  { name: 'Cinnamon', kind: 'a cinnamon tabby', pattern: 'tabby', base: '#c9825a', shade: '#a6623e', light: '#e8b08c', stripe: '#86452a',
+    belly: '#f6e2d0', paw: '#f0d6c0', ear: '#f0a8a4', nose: '#e08890', eye: '#8fd06a' },
+  { name: 'Peaches', kind: 'a peach and white cat', pattern: 'tuxedo', base: '#f6c09a', shade: '#e09e76', light: '#ffdcc4', stripe: '#d88c64',
+    belly: '#fffaf6', paw: '#fffaf6', ear: '#f8b4b4', nose: '#f090a0', eye: '#68b6e2', muzzle: '#fffaf6' },
+  { name: 'Frost', kind: 'a blue point Siamese', pattern: 'pointed', base: '#f2f2f6', shade: '#d6d8e2', light: '#ffffff', stripe: '#7c8698',
+    belly: '#fafbfd', paw: '#7c8698', ear: '#8a94a8', nose: '#8a8ea0', eye: '#4aa0f0', leg: '#8a94a6', legFar: '#646e82', tail: '#7c8698' },
+  { name: 'Pepper', kind: 'a dark grey tabby', pattern: 'tabby', base: '#6e6c74', shade: '#54525a', light: '#96949c', stripe: '#36343a',
+    belly: '#c8c6cc', paw: '#bcbac0', ear: '#d8a0aa', nose: '#c88894', eye: '#e8c040' },
+  { name: 'Maple', kind: 'a maple calico', pattern: 'calico', base: '#f8eedc', shade: '#e2d2b8', light: '#ffffff', stripe: '#5a3a28',
+    patch: '#c0703a', belly: '#ffffff', paw: '#ffffff', ear: '#f4b0b0', nose: '#e8909c', eye: '#9ac860' },
+  { name: 'Biscuit', kind: 'a fawn cat', pattern: 'solid', base: '#e2c4a4', shade: '#c8a684', light: '#f4dcc4', stripe: '#c8a684',
+    belly: '#f2e2d0', paw: '#f2e2d0', ear: '#f2b4b0', nose: '#e49a9c', eye: '#7cc4ef' },
+  { name: 'Clover', kind: 'a soft grey calico', pattern: 'calico', base: '#fbf7f2', shade: '#e4ddd4', light: '#ffffff', stripe: '#8e96a6',
+    patch: '#e8c49c', belly: '#ffffff', paw: '#ffffff', ear: '#f6b6c0', nose: '#ee98a8', eye: '#8fd06a' },
+  { name: 'Hazel', kind: 'a golden tabby', pattern: 'tabby', base: '#e6b866', shade: '#c89644', light: '#f8d898', stripe: '#a87428',
+    belly: '#fff4dc', paw: '#fcecd0', ear: '#f4b2a8', nose: '#e8909a', eye: '#5aa8f0' },
+  { name: 'Mittens', kind: 'a brown and white cat', pattern: 'tuxedo', base: '#8a6448', shade: '#6a4a32', light: '#b08a6c', stripe: '#6a4a32',
+    belly: '#fffaf4', paw: '#fffaf4', ear: '#e8a8a8', nose: '#e0909c', eye: '#9be27a', muzzle: '#fffaf4' },
+  { name: 'Twinkle', kind: 'a lemon and sky striped kitten', pattern: 'candy', base: '#fffdf6', shade: '#ece6da', light: '#ffffff', stripe: '#ffd86a',
+    stripe2: '#96d2f4', belly: '#ffffff', paw: '#ffffff', ear: '#f5aebd', nose: '#f19bb0', eye: '#f2a43a' },
 ];
 
 const MICE = [
@@ -70,6 +90,16 @@ const MICE = [
   { name: 'smoke', fur: '#8e8e98', shade: '#70707a', belly: '#c4c4cc' },
   { name: 'honey', fur: '#d9a860', shade: '#b88a42', belly: '#f2d8a8' },
   { name: 'pearl', fur: '#e4e2ec', shade: '#c6c4d0', belly: '#f8f7fb' },
+  { name: 'russet', fur: '#b0663e', shade: '#8c4c2a', belly: '#e6c0a4' },
+  { name: 'snow', fur: '#ffffff', shade: '#e4e4ea', belly: '#ffffff' },
+  { name: 'ash', fur: '#9c9692', shade: '#7c7672', belly: '#d6d0cc' },
+  { name: 'caramel', fur: '#c89458', shade: '#a6743a', belly: '#f0d6b0' },
+  { name: 'peach', fur: '#f0c0a0', shade: '#d6a080', belly: '#fde6d8' },
+  { name: 'slate', fur: '#6e7684', shade: '#545c6a', belly: '#a8aebb' },
+  { name: 'butter', fur: '#f4dc98', shade: '#d8be74', belly: '#fff4d4' },
+  { name: 'mink', fur: '#8e7464', shade: '#6e5646', belly: '#cbb6a8' },
+  { name: 'rose', fur: '#e6c0c4', shade: '#c8a0a6', belly: '#f8e4e6' },
+  { name: 'sable', fur: '#5a4438', shade: '#422e24', belly: '#968070' },
 ];
 
 // The room behind each level: wallpaper, then the colour and kind of the walls and floors.
@@ -94,10 +124,22 @@ const THEMES = [
   { bg: ['#d6f0ff', '#f0faff'], paper: 'sky', ink: 'rgba(255, 255, 255, 0.9)', block: ['#c48e5a', '#9c683a', '#6e4422'], kind: 'wood' },
   { bg: ['#cfe4f8', '#eaf4ff'], paper: 'snow', ink: 'rgba(255, 255, 255, 0.95)', block: ['#ffffff', '#e4eef8', '#b8cce0'], kind: 'pillow' },
   { bg: ['#ffd9b8', '#ffc0cc'], paper: 'sky', ink: 'rgba(255, 255, 255, 0.7)', block: ['#f09a8a', '#d06e5c', '#9e4636'], kind: 'tile' },
+  { bg: ['#fdf3e7', '#f3dfc6'], paper: 'stripes', ink: 'rgba(200, 140, 100, 0.14)', block: ['#d9b48a', '#b88a5c', '#8a6038'], kind: 'wood' },
+  { bg: ['#eef4ea', '#d8e6d0'], paper: 'brick', ink: 'rgba(110, 140, 100, 0.2)', block: ['#c8d0c0', '#a2ac98', '#78826e'], kind: 'concrete' },
+  { bg: ['#f6eefa', '#e6d8f0'], paper: 'dots', ink: 'rgba(170, 120, 200, 0.16)', block: ['#f4e6d0', '#dcc4a0', '#b09870'], kind: 'wood' },
+  { bg: ['#fff4ec', '#f6dccb'], paper: 'checks', ink: 'rgba(200, 110, 110, 0.12)', block: ['#c8806a', '#a45e4a', '#7a3e30'], kind: 'wood' },
+  { bg: ['#283058', '#3e3670'], paper: 'stars', ink: 'rgba(255, 240, 210, 0.85)', block: ['#c6d4f6', '#9aaee6', '#6e84c4'], kind: 'pillow' },
+  { bg: ['#eceae4', '#d6d2c8'], paper: 'boards', ink: 'rgba(90, 80, 60, 0.16)', block: ['#9aa4b0', '#78828e', '#56606c'], kind: 'concrete' },
+  { bg: ['#e4dccf', '#c9bba6'], paper: 'brick', ink: 'rgba(110, 80, 50, 0.22)', block: ['#b49a7a', '#8e7454', '#64503a'], kind: 'concrete' },
+  { bg: ['#e8f0ff', '#d0dcf4'], paper: 'tiles', ink: 'rgba(110, 140, 200, 0.2)', block: ['#e0c890', '#c4a462', '#94783c'], kind: 'wood' },
+  { bg: ['#d8f2ff', '#effbea'], paper: 'sky', ink: 'rgba(255, 255, 255, 0.85)', block: ['#9ad87e', '#62b04a', '#3e8030'], kind: 'hedge' },
+  { bg: ['#fff0f6', '#f2e2ff'], paper: 'stripes', ink: 'rgba(200, 150, 240, 0.14)', block: ['#ffd27a', '#f6a94e', '#cf7f2e'], kind: 'toy' },
 ];
 
 const TOY = ['#ff9aa8', '#ffc66b', '#9ad98a', '#84c6f2', '#c2a2f0'];
 const WATER_HEAD = [['#9fd2ff', '#3f95e8', '#1f5aa8'], ['#ffb0cb', '#ee5f92', '#a8305c'], ['#a8eaa4', '#3fbf5a', '#20803a']];
+const KEY = [['#ffa0a8', '#e8475a', '#a82838'], ['#ffe08a', '#f2b632', '#b07a10'], ['#dcc0ff', '#9a62e6', '#5e34a0']];
+const SWAP = [['#ffc2d8', '#ff86b0', '#d0507e'], ['#c4f4de', '#5fd6a4', '#2a9a6c']];
 const TUNNEL = [['#ffc285', '#f28a2c', '#a8541a'], ['#d6b4ff', '#9a62e6', '#5e34a0'], ['#a6eec0', '#36b878', '#1d7a4c']];
 
 // Small fixed hash so textures don't shimmer between redraws.
@@ -205,7 +247,7 @@ function drawRoom(g, cols, rows, th) {
 // ---------- walls and floors ----------
 
 // Tiles that join into one wall: plain walls and the special floors.
-const WALLISH = (v) => v === 60 || v === 95 || v === 98 || v === 115 || v === 118;
+const WALLISH = (v) => v === 60 || v === 95 || v === 98 || v === 115 || v === 118 || v === 28 || v === 29;
 
 // One square of wall with its corners rounded wherever it sticks out.
 function drawWall(g, x, y, cx, cy, look, th) {
@@ -534,16 +576,117 @@ function drawCactus(g, x, y) {
   g.fillStyle = '#f2b088'; g.fillRect(x + 2.4, y + 8.8, 7.2, 1.1);
 }
 
+// Tiles 24-26: a key with a heart for a handle. It opens every gate of its colour.
+function drawKey(g, x, y, c, t) {
+  const [l, m, d] = KEY[c];
+  g.save();
+  g.translate(x + 6, y + 6 + Math.sin(t * 3 + x * 0.3) * 0.7);
+  g.rotate(-0.5 + Math.sin(t * 2 + x) * 0.12);
+  g.shadowColor = m; g.shadowBlur = 4;
+  g.fillStyle = grad(g, -4, -3, 4, 3, [[0, l], [0.5, m], [1, d]]);
+  g.save(); g.translate(-2.4, 0); g.rotate(-Math.PI / 2); heartPath(g, 0, -0.2, 2.4); g.fill(); g.restore();
+  g.shadowBlur = 0;
+  rrect(g, -1, -0.65, 6.2, 1.3, 0.6); g.fill();
+  g.fillRect(3.1, 0.4, 0.9, 1.5); g.fillRect(4.4, 0.4, 0.8, 1.1);
+  g.fillStyle = 'rgba(255,255,255,0.75)'; ell(g, -3.4, -1.3, 0.8, 0.45, -0.6); g.fill();
+  g.restore();
+  g.globalAlpha = (Math.sin(t * 4 + x) + 1) / 2;
+  sparkle(g, x + 9.5, y + 2.5, 1.3, '#ffffff');
+  g.globalAlpha = 1;
+}
+
+// Tiles 80-82: a pet gate, white bars in a frame of the key's colour, with a padlock on the bottom square.
+function drawGate(g, x, y, c, look) {
+  const [l, m, d] = KEY[c];
+  const same = (v) => v === 80 + c;
+  const top = !same(look(0, -1)), bottom = !same(look(0, 1));
+  g.fillStyle = 'rgba(255, 255, 255, 0.28)';
+  g.fillRect(x + 0.5, y, T - 1, T);
+  g.fillStyle = grad(g, x, 0, x + T, 0, [[0, '#ffffff'], [0.5, '#f2eef2'], [1, '#d6d0d8']]);
+  for (const bx of [2.6, 5.2, 7.8]) g.fillRect(x + bx, y, 1.3, T);
+  g.fillStyle = grad(g, x, 0, x + T, 0, [[0, l], [0.5, m], [1, d]]);
+  g.fillRect(x, y, 1.6, T); g.fillRect(x + T - 1.6, y, 1.6, T);
+  if (top) { rrect(g, x, y, T, 1.8, 0.8); g.fill(); }
+  if (bottom) {
+    rrect(g, x, y + T - 1.8, T, 1.8, 0.8); g.fill();
+    g.strokeStyle = d; g.lineWidth = 0.9;
+    g.beginPath(); g.arc(x + 6, y + 5.4, 1.7, Math.PI, 0); g.stroke();
+    g.fillStyle = grad(g, 0, y + 5.4, 0, y + 9.4, [[0, l], [1, m]]);
+    rrect(g, x + 3.4, y + 5.4, 5.2, 4, 1); g.fill();
+    g.fillStyle = d; g.beginPath(); g.arc(x + 6, y + 7, 0.65, 0, 7); g.fill(); g.fillRect(x + 5.7, y + 7, 0.6, 1.4);
+  }
+}
+
+// Tiles 28 and 29: a cat flap set in the wall. It swings only one way, shown by the arrow:
+// 28 lets the cat through going right, 29 going left. Dogs and vacuums don't fit.
+function drawFlap(g, x, y, dir) {
+  g.fillStyle = 'rgba(60, 35, 30, 0.55)';
+  rrect(g, x + 1.4, y + 1.6, T - 2.8, T - 1.6, [3, 3, 0, 0]); g.fill();
+  g.save();
+  g.translate(x + 6, y + 2.2);
+  g.transform(1, 0, dir * 0.18, 1, 0, 0);
+  g.fillStyle = grad(g, 0, 0, 0, 9.5, [[0, '#fff8ee'], [1, '#e8dccc']]);
+  rrect(g, -4.2, 0, 8.4, 9.6, [2.4, 2.4, 1, 1]); g.fill();
+  g.fillStyle = 'rgba(150, 120, 100, 0.35)';
+  ell(g, 0, 7, 1.3, 1); g.fill();
+  [[-1.5, 5.3], [0, 4.8], [1.5, 5.3]].forEach(([a, b]) => { ell(g, a, b, 0.5, 0.6); g.fill(); });
+  g.restore();
+  g.strokeStyle = '#ff7aa2'; g.lineWidth = 1; g.lineCap = 'round'; g.lineJoin = 'round';
+  g.beginPath(); g.moveTo(x + 6 - dir * 1.4, y + 2.4); g.lineTo(x + 6 + dir * 0.6, y + 4); g.lineTo(x + 6 - dir * 1.4, y + 5.6); g.stroke();
+}
+
+// Tiles 84 and 85: the pink and mint blocks the light switch swaps. Solid ones are full blocks with a
+// star or a dot; open ones are only a dashed outline.
+function drawSwapBlock(g, x, y, c, on) {
+  const [l, m, d] = SWAP[c];
+  if (on) {
+    g.fillStyle = grad(g, 0, y, 0, y + T, [[0, l], [0.4, m], [1, d]]);
+    rrect(g, x + 0.3, y + 0.3, T - 0.6, T - 0.6, 2); g.fill();
+    g.fillStyle = 'rgba(255,255,255,0.55)'; g.fillRect(x + 1.5, y + 1.2, T - 3, 1);
+    g.fillStyle = 'rgba(255,255,255,0.85)';
+    if (c === 0) sparkle(g, x + 6, y + 6.4, 3, 'rgba(255,255,255,0.9)');
+    else { g.beginPath(); g.arc(x + 6, y + 6.4, 2, 0, 7); g.fill(); }
+  } else {
+    g.fillStyle = 'rgba(255,255,255,0.12)';
+    g.fillRect(x + 1, y + 1, T - 2, T - 2);
+    g.strokeStyle = m; g.lineWidth = 0.6; g.setLineDash([1.2, 1]);
+    rrect(g, x + 1, y + 1, T - 2, T - 2, 2); g.stroke();
+    g.setLineDash([]);
+  }
+}
+
+// Tiles 30 and 31: the light switch on the floor. The lit half shows which blocks are solid now
+// (30 pink, 31 mint); walking onto it swaps them.
+function drawSwitch(g, x, y, mint, t) {
+  g.fillStyle = '#9aa0b0';
+  rrect(g, x + 1, y + 10.4, 10, 1.6, 0.6); g.fill();
+  g.fillStyle = grad(g, 0, y + 4, 0, y + 10.6, [[0, '#ffffff'], [1, '#dcdce6']]);
+  rrect(g, x + 2, y + 4, 8, 6.6, 1.6); g.fill();
+  const glow = 0.6 + Math.sin(t * 5) * 0.25;
+  [0, 1].forEach((c) => {
+    const [l, m] = SWAP[c], lit = c === (mint ? 1 : 0);
+    g.save();
+    if (lit) { g.shadowColor = m; g.shadowBlur = 4 * glow; }
+    g.fillStyle = lit ? grad(g, 0, y + 5, 0, y + 9.6, [[0, l], [1, m]]) : 'rgba(170, 170, 185, 0.5)';
+    rrect(g, x + 2.8 + c * 3.4, y + 4.8, 3, 5, 1); g.fill();
+    g.restore();
+  });
+  g.strokeStyle = '#7a7f90'; g.lineWidth = 0.8; g.lineCap = 'round';
+  g.beginPath(); g.moveTo(x + 6, y + 9.4); g.lineTo(x + 6 + (mint ? 2.6 : -2.6), y + 2.6); g.stroke();
+  g.fillStyle = '#ffffff'; g.beginPath(); g.arc(x + 6 + (mint ? 2.6 : -2.6), y + 2.6, 1.1, 0, 7); g.fill();
+}
+
 // ---------- tile dispatch ----------
 
 // Tiles drawn every frame instead of into the level's backing picture, because they move or change.
-const LIVE = new Set([4, 6, 7, 8, 15, 16, 19, 20, 21, 22, 23, 33, 34, 35, 74, 75, 76, 77, 78, 79, 115, 118]);
+const LIVE = new Set([4, 6, 7, 8, 15, 16, 19, 20, 21, 22, 23, 24, 25, 26, 30, 31, 33, 34, 35, 74, 75, 76, 77, 78, 79, 115, 118]);
 
 // cell is the raw map byte: bit 0x80 marks a swiped box or a sprinkler turned off.
 // look(dx, dy) gives a neighbouring cell (-1 off the map). pressed[c] says a button colour is done.
 function drawTile(g, cell, x, y, cx, cy, t, look, th, pressed) {
   const tile = cell & 0x7f, off = cell & 0x80;
   if (tile >= 74 && tile <= 79) return drawWater(g, x, y, (tile - 74) >> 1, !off, look, t);
+  if (tile === 84 || tile === 85) return drawSwapBlock(g, x, y, tile - 84, !off);
   if (off) return;
   switch (tile) {
     case 0: return;
@@ -557,6 +700,10 @@ function drawTile(g, cell, x, y, cx, cy, t, look, th, pressed) {
     case 21: return drawBell(g, x, y, t);
     case 22: return drawFish(g, x, y, t);
     case 23: return drawHeartItem(g, x, y, t);
+    case 24: case 25: case 26: return drawKey(g, x, y, tile - 24, t);
+    case 28: case 29: return drawFlap(g, x, y, tile === 28 ? 1 : -1);
+    case 30: case 31: return drawSwitch(g, x, y, tile === 31, t);
+    case 80: case 81: case 82: return drawGate(g, x, y, tile - 80, look);
     case 33: case 34: case 35: return drawPounceButton(g, x, y, tile - 33, pressed && pressed[tile - 33], t);
     case 38: return drawCactus(g, x, y);
     case 70: return drawBox(g, x, y);
@@ -576,7 +723,7 @@ function drawLevelStatic(g, cols, rows, tileAt, th) {
   g.fillStyle = 'rgba(0,0,0,0.25)';
   for (let cy = 0; cy < rows; cy++) for (let cx = 0; cx < cols; cx++) {
     const v = tileAt(cx, cy);
-    if (v < 0 || v & 0x80 || !(WALLISH(v) || v === 70)) continue;
+    if (v < 0 || v & 0x80 || !(WALLISH(v) || v === 70 || (v >= 80 && v <= 82) || v === 84 || v === 85)) continue;
     g.fillRect(cx * T + 0.5, cy * T + 0.5, T - 1, T - 1);
   }
   g.restore();
@@ -589,6 +736,7 @@ function drawLevelStatic(g, cols, rows, tileAt, th) {
       drawWall(g, x, y, cx, cy, look, th);
       if (v === 95) drawSlippery(g, x, y, cx);
       if (v === 98) drawSticky(g, x, y, cx);
+      if (v === 28 || v === 29) drawFlap(g, x, y, v === 28 ? 1 : -1);
     } else if (!LIVE.has(v & 0x7f)) drawTile(g, v, x, y, cx, cy, 0, look, th);
   }
 }

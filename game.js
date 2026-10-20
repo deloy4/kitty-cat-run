@@ -24,7 +24,7 @@ const G = {
   screen: 'title', level: 0, score: 0, lives: START_LIVES, speed: 5, newLife: 0,
   grid: null, door: null, start: null, monsters: [], pads: [[], [], []], digs: [], pickups: [],
   gifts: 0, giftsTotal: 0, doorCount: 0, doorOpen: false, shield: 0, stun: 0, pressed: [false, false, false],
-  info: 0, t: 0, timer: 0,
+  keys: [false, false, false], info: 0, t: 0, timer: 0,
 };
 let S = null; // the cat
 
@@ -69,11 +69,11 @@ function loadLevel() {
   G.gifts = 0;
   G.doorCount = G.giftsTotal === 0 ? 1 : 0;
   G.doorOpen = false;
-  G.digs = []; G.pickups = []; G.shield = 0; G.stun = 0; G.pressed = [false, false, false];
+  G.digs = []; G.pickups = []; G.shield = 0; G.stun = 0; G.pressed = [false, false, false]; G.keys = [false, false, false];
   S = {
     x: sc * U, y: sr * U, vx: 0, vy: 0, lastvx: 0, fuel: 0, mode: 0, jetCount: 0, swipeT: 0, swipeDir: 0, swipeHold: 0,
     dying: 0, cause: '', teleport: 0, tpDest: null, frame: 0, pxPrev: sc * U, pyPrev: sr * U, pounce: 0,
-    padLatch: false, wallLatch: false, jet: false, shifter: false,
+    padLatch: false, wallLatch: false, switchLatch: false, jet: false, shifter: false,
   };
   G.staticDirty = true;
 }
@@ -157,6 +157,7 @@ let step = function () {
     case 21: points += 25; G.grid[ci] = 0; sfx('bell'); break;
     case 22: points += 50; G.grid[ci] = 0; sfx('coin'); break;
     case 23: points += 100; G.newLife++; G.grid[ci] = 0; sfx('life'); break;
+    case 24: case 25: case 26: points += 25; G.grid[ci] = 0; unlockGates(centre - 24); break;
   }
 
   // 6. movement mode and velocity
@@ -246,6 +247,9 @@ let step = function () {
   if (dy > 0 && !shifter && !jet && centre >= 6 && centre <= 8 && !S.teleport) {
     if (!S.padLatch) { S.teleport = (centre - 6) * 1000 + 1; S.padLatch = true; }
   } else if (!(centre >= 6 && centre <= 8) || dy <= 0) S.padLatch = false;
+  // the light switch flips once each time the cat comes onto it
+  if ((centre === 30 || centre === 31) && !S.dying) { if (!S.switchLatch) { flipSwitch(); points += 5; } S.switchLatch = true; }
+  else S.switchLatch = false;
 
   // 10. a bubble, bone or yarn ball pops up now and then
   if (Math.floor((rand() * 5000) / 32768) === 0 && G.pickups.length < 9) {
@@ -287,11 +291,14 @@ let step = function () {
   // 13. walls, floors and ceilings
   let f = 0;
   if (S.vx < 0) {
-    if (solid(leftBot) && !solid(tileAt(px, py - 1)) && solid(tileAt(px, py - 2))) { S.y -= 32; S.x -= 32; S.vy = 0; f = 1; }
+    // a cat flap that only swings to the right (28) stops the cat going left, and the other way round
+    if (leftTop === 28 || leftBot === 28) S.vx = 0;
+    else if (solid(leftBot) && !solid(tileAt(px, py - 1)) && solid(tileAt(px, py - 2))) { S.y -= 32; S.x -= 32; S.vy = 0; f = 1; }
     else if (solid(leftTop) && !solid(tileAt(px, py + 12)) && solid(tileAt(px, py + 13))) { S.y += 32; S.x -= 32; S.vy = 0; f = 1; }
     else if (solid(leftTop) || solid(leftBot)) S.vx = 0;
   } else if (S.vx > 0) {
-    if (solid(rightBot) && !solid(tileAt(px + 11, py - 1)) && solid(tileAt(px + 11, py - 2))) { S.y -= 32; S.x += 32; S.vy = 16; f = 1; }
+    if (rightTop === 29 || rightBot === 29) S.vx = 0;
+    else if (solid(rightBot) && !solid(tileAt(px + 11, py - 1)) && solid(tileAt(px + 11, py - 2))) { S.y -= 32; S.x += 32; S.vy = 16; f = 1; }
     else if (solid(rightTop) && !solid(tileAt(px + 11, py + 12)) && solid(tileAt(px + 11, py + 13))) { S.y += 32; S.x += 32; S.vy = 0; f = 1; }
     else if (solid(rightTop) || solid(rightBot)) S.vx = 0;
   }
@@ -410,9 +417,30 @@ function pressButton(c) {
   G.staticDirty = true;
 }
 
+// A key opens every gate of its colour for the rest of the level.
+function unlockGates(c) {
+  G.keys[c] = true;
+  G.grid.forEach((v, i) => { if (v === 80 + c) G.grid[i] = v | 0x80; });
+  sfx('unlock');
+  G.staticDirty = true;
+}
+
+// The light switch swaps the pink blocks (84) and the mint blocks (85): whichever were solid open up,
+// and the others fill in. The switch itself (30 pink on, 31 mint on) shows which colour is solid.
+function flipSwitch() {
+  G.grid.forEach((v, i) => {
+    const tile = v & 0x7f;
+    if (tile === 84 || tile === 85) G.grid[i] = v ^ 0x80;
+    else if (v === 30 || v === 31) G.grid[i] = v ^ 1;
+  });
+  sfx('click');
+  G.staticDirty = true;
+}
+
 // ---------- the dog, the robot vacuum and the bouncy ball ----------
 
-function sense(m, dx, dy) { return tileAt((m.x >> 5) + dx, (m.y >> 5) + dy); }
+// Dogs and vacuums are too big for a cat flap, so to them it is a wall.
+function sense(m, dx, dy) { const t = tileAt((m.x >> 5) + dx, (m.y >> 5) + dy); return t === 28 || t === 29 ? 60 : t; }
 
 function updateMonster(m) {
   m.vx = 0; m.vy = 0;
@@ -662,6 +690,8 @@ const SFX = {
   pounce: () => { tone(260, 0.12, 'triangle', 0.09, 300); noise(0.45, 0.05, 2000, 0.1); tone(900, 0.4, 'sine', 0.04, -600, 0.15); },
   tunnel: () => { tone(260, 0.5, 'sine', 0.07, 900); noise(0.4, 0.04, 1500); },
   popup: () => tone(1200, 0.08, 'sine', 0.05, 400),
+  unlock: () => { tone(1320, 0.08, 'triangle', 0.07); tone(1760, 0.1, 'triangle', 0.06, 0, 0.07); noise(0.12, 0.06, 2400, 0.16); tone(2200, 0.25, 'sine', 0.04, 600, 0.2); },
+  click: () => { noise(0.04, 0.1, 3000, 0, 'highpass'); tone(700, 0.08, 'square', 0.04, -200, 0.02); },
   boing: () => tone(180, 0.12, 'sine', 0.035, 160),
   win: () => { [523, 659, 784, 659, 784, 1047].forEach((f, i) => tone(f, 0.14, 'triangle', 0.08, 0, i * 0.11)); meow(1.25, 0.3, 0.06, 0.7); },
   tick: () => tone(1800, 0.02, 'square', 0.02),
@@ -931,7 +961,8 @@ function drawReady(t) {
   bigMouse(M, 196, 118, 2.2, 'sleep', t);
   centerText(`${P.name} is ${P.kind}.`, 140, 7, '#7a4a68', 600);
   centerText(`Eat all ${G.giftsTotal} treats so the ${M.name} mouse wakes up.`, 152, 6, '#7a4a68', 500);
-  if (G.timer > 500 && Math.floor(t * 2) % 2 === 0) centerText('Press any key or tap', 172, 6.5, '#c0507a', 600);
+  if (LEVELS[G.level].tip) centerText(LEVELS[G.level].tip, 162, 5.5, '#b06a8a', 600);
+  if (G.timer > 500 && Math.floor(t * 2) % 2 === 0) centerText('Press any key or tap', 175, 6.5, '#c0507a', 600);
 }
 
 function drawOverlayText(lines) {
